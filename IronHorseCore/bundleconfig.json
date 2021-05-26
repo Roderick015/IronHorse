@@ -1,0 +1,28 @@
+[
+    {
+        "outputFileName": "wwwroot/bundles/site.min.css",
+        "inputFiles": [
+            "wwwroot/lib/bootstrap/css/bootstrap.min.css",
+            "wwwroot/css/site.css"
+        ],
+        "minify": {
+            "enabled": true,
+            "commentMode": "none"
+        }
+    },
+    {
+        "outputFileName": "wwwroot/bundles/site.min.js",
+        "inputFiles": [
+            "wwwroot/lib/jquery/jquery.min.js",
+            "wwwroot/lib/bootstrap/js/bootstrap.bundle.min.js",
+            "wwwroot/js/site.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true,
+            "preserveImportantComments": false
+        },
+        "sourceMap": false
+    }
+]
+
