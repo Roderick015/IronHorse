@@ -1,0 +1,280 @@
+﻿@model IronHorseCore.Models.Operation
+
+@{
+    ViewData["Title"] = "Details";
+    float sumaGatos = 0;
+}
+
+<h4>Detalle de la Operación</h4>
+<hr />
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Operación</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Datos del viaje</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Gastos del Conductor</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="contact1-tab" data-toggle="tab" href="#contact1" role="tab" aria-controls="contact1" aria-selected="false">Costo del servicio</a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active p-2" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <dl class="row">
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.Mes)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Mes)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.ClientId)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Client.Name)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.CarrierId)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Carrier.Name)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.TypeLoadId)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.TypeLoad.Name)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.TypeProductId)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.TypeProduct.Name)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.LoadDate)
+            </dt>
+            <dd class="col-sm-7">
+                @Convert.ToDateTime(Model.LoadDate).ToString("dd/MM/yyyy")
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.OutDate)
+            </dt>
+            <dd class="col-sm-7">
+                @Convert.ToDateTime(Model.OutDate).ToString("dd/MM/yyyy")
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.EndDate)
+            </dt>
+            <dd class="col-sm-7">
+                @Convert.ToDateTime(Model.EndDate).ToString("dd/MM/yyyy")
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.SourceId)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Source.Name)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.DestinyId)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Destiny.Name)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.DriverId)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Driver.Name)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.TractoId)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Tracto.Id)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.CarretaId)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Carreta.Id)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.UnitId)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Unit.Name)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.UnitPay)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.UnitPay)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.MoneyId)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Money.Name)
+            </dd>
+
+
+
+
+        </dl>
+
+    </div>
+    <div class="tab-pane fade p-2" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <dl class="row">
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.OdometerBegin)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.OdometerBegin)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.OdometerEnd)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.OdometerEnd)
+            </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.Fuel)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Fuel)
+            </dd>
+
+            <dt class="col-sm-5">
+                Guia Remision Remitente
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Fuel) <a>Foto</a>
+            </dd>
+            <dt class="col-sm-5">
+                Guia Remision tranportista
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Fuel) <a>Foto</a>
+            </dd>
+            <dt class="col-sm-5">
+                Carga Efectiva
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Fuel) <a>Foto</a>
+            </dd>
+            <dt class="col-sm-5">
+                Ticket balanza origen
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Fuel) <a>Foto</a>
+            </dd>
+            <dt class="col-sm-5">
+                Ticket balanza destino
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Fuel) <a>Foto</a>
+            </dd>
+            <dt class="col-sm-5">
+                fecha de fin
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Fuel)
+            </dd>
+        </dl>
+
+    </div>
+    <div class="tab-pane fade p-2" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+
+        <p>
+            <a asp-controller="DriverExpenses" asp-action="Create" asp-route-operationid="@Model.Id" asp-route-driverid="@Model.DriverId" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Agregar Gasto</a>
+        </p>
+        <table id="tblList" class="table table-sm table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Fecha
+                    </th>
+                    <th>
+                        Tipo de gasto
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                    <th>
+                        Monto
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.DiverExpenses)
+                {
+                    sumaGatos += item.Amount;
+                    <tr>
+                        <td>
+                            @item.Date.ToString("dd/MM/yyyy")
+                        </td>
+                        <td>
+                            @item.TypeExpense.Name
+                        </td>
+                        <td>
+                            @item.Description
+                        </td>
+                        <td class="text-right">
+                            @item.Amount.ToString("#.00")
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">
+                    </td>
+                    <td class="text-right">
+                        @sumaGatos.ToString("#.00")
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+
+    <div class="tab-pane fade p-2" id="contact1" role="tabpanel" aria-labelledby="contact1-tab">
+        <dl class="row">
+            <dt class="col-sm-5">
+                Llantas (Ratio x Cantidad de kilimetros)
+            </dt>
+            <dd class="col-sm-7">
+
+            </dd>
+            <dt class="col-sm-5">
+                Mantenimiento (Ratio x Cantidad de kilimetros)
+            </dt>
+            <dd class="col-sm-7">
+
+            </dd>
+            <dt class="col-sm-5">
+                Peajes
+            </dt>
+            <dd class="col-sm-7">
+
+            </dd>
+        </dl>
+    </div>
+</div>
+
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+        <a asp-action="Index">Regresar</a>
+    </div>

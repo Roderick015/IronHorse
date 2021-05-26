@@ -1,0 +1,232 @@
+﻿@model IronHorseCore.Models.Driver
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4>Agregar Conductor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control form-control-sm" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="BirthDay" class="control-label"></label>
+                        <input asp-for="BirthDay" class="form-control form-control-sm datepicker-input" />
+                        <span asp-validation-for="BirthDay" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
+                </label>
+            </div>
+            <div class="form-row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="Dni" class="control-label"></label>
+                        <input asp-for="Dni" class="form-control form-control-sm" />
+                        <span asp-validation-for="Dni" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="Dnivigencia" class="control-label"></label>
+                        <input asp-for="Dnivigencia" class="form-control form-control-sm datepicker-input" />
+                        <span asp-validation-for="Dnivigencia" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="LicenseDriverNumber" class="control-label"></label>
+                        <input asp-for="LicenseDriverNumber" class="form-control form-control-sm" />
+                        <span asp-validation-for="LicenseDriverNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="LicenseDriverValidaty" class="control-label"></label>
+                        <input asp-for="LicenseDriverValidaty" class="form-control form-control-sm datepicker-input" />
+                        <span asp-validation-for="LicenseDriverValidaty" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="LicenseDriver2Number" class="control-label"></label>
+                        <input asp-for="LicenseDriver2Number" class="form-control form-control-sm" />
+                        <span asp-validation-for="LicenseDriver2Number" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="LicenseDriver2Validaty" class="control-label"></label>
+                        <input asp-for="LicenseDriver2Validaty" class="form-control form-control-sm datepicker-input" />
+                        <span asp-validation-for="LicenseDriver2Validaty" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-6">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Iqpf" /> @Html.DisplayNameFor(model => model.Iqpf)
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-4">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="CursosPortuarios" /> @Html.DisplayNameFor(model => model.CursosPortuarios)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="CursosPortuariosVigencia" class="control-label"></label>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <input asp-for="CursosPortuariosVigencia" class="form-control form-control-sm datepicker-input" />
+                        <span asp-validation-for="CursosPortuariosVigencia" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-4">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="InduccionImpala" /> @Html.DisplayNameFor(model => model.InduccionImpala)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="InduccionImpalaVigencia" class="control-label"></label>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <input asp-for="InduccionImpalaVigencia" class="form-control form-control-sm datepicker-input" />
+                        <span asp-validation-for="InduccionImpalaVigencia" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-4">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="InduccionLogisminsa" /> @Html.DisplayNameFor(model => model.InduccionLogisminsa)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="InduccionLogisminsaVigencia" class="control-label"></label>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <input asp-for="InduccionLogisminsaVigencia" class="form-control form-control-sm datepicker-input" />
+                        <span asp-validation-for="InduccionLogisminsaVigencia" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-4">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="InduccionPerubar" /> @Html.DisplayNameFor(model => model.InduccionPerubar)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="InduccionPerubarVigencia" class="control-label"></label>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <input asp-for="InduccionPerubarVigencia" class="form-control form-control-sm datepicker-input" />
+                        <span asp-validation-for="InduccionPerubarVigencia" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-4">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="InduccionShouxin" /> @Html.DisplayNameFor(model => model.InduccionShouxin)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="InduccionShouxinVigencia" class="control-label"></label>                       
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <input asp-for="InduccionShouxinVigencia" class="form-control form-control-sm datepicker-input" />
+                        <span asp-validation-for="InduccionShouxinVigencia" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="InduccionTisur" /> @Html.DisplayNameFor(model => model.InduccionTisur)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="InduccionRansa" /> @Html.DisplayNameFor(model => model.InduccionRansa)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="InduccionAcerosA" /> @Html.DisplayNameFor(model => model.InduccionAcerosA)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Grabar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Regresar</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+<script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="~/lib/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>
+
+<script>
+    $('.datepicker-input').datepicker({
+        language: "es",
+        autoclose: true,
+        todayHighlight: true
+    });
+</script>
+
+}

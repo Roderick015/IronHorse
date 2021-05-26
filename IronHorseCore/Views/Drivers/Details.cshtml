@@ -1,0 +1,109 @@
+﻿@model IronHorseCore.Models.Driver
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+    <h4>Conductor</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-5">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-7">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-5">
+            @Html.DisplayNameFor(model => model.BirthDay)
+        </dt>
+        <dd class = "col-sm-7">
+            @Html.DisplayFor(model => model.BirthDay)
+        </dd>
+        <dt class="col-sm-5">
+            Licencia de conducir Número / Vigencia
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.LicenseDriverNumber) / @Html.DisplayFor(model => model.LicenseDriverValidaty)
+        </dd>
+
+        <dt class="col-sm-5">
+            Licencia de conducir 2 Número / Vigencia
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.LicenseDriver2Number) / @Html.DisplayFor(model => model.LicenseDriver2Validaty)
+        </dd>
+       
+        <dt class="col-sm-5">
+            DNI / Vigencia
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.Dni) / @Html.DisplayFor(model => model.Dnivigencia)
+        </dd>        
+        <dt class = "col-sm-5">
+            @Html.DisplayNameFor(model => model.Iqpf)
+        </dt>
+        <dd class = "col-sm-7">
+            @Html.DisplayFor(model => model.Iqpf)
+        </dd>
+        <dt class = "col-sm-5">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class = "col-sm-7">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt class="col-sm-5">
+            Cursos Portuarios / Vigencia
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.CursosPortuarios) / @Html.DisplayFor(model => model.CursosPortuariosVigencia)
+        </dd>
+        <dt class="col-sm-5">
+            Inducción Impala / Vigencia
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.InduccionImpala) / @Html.DisplayFor(model => model.InduccionImpalaVigencia)
+        </dd>
+        <dt class="col-sm-5">
+            Inducción Logisminsa / Vigencia
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.InduccionLogisminsa) / @Html.DisplayFor(model => model.InduccionLogisminsaVigencia)
+        </dd>
+        <dt class="col-sm-5">
+            Induccion Perubar / Vigencia
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.InduccionPerubar) / @Html.DisplayFor(model => model.InduccionPerubarVigencia)
+        </dd>
+        <dt class="col-sm-5">
+            Induccion Shouxin / Vigencia
+        </dt>
+        <dd class="col-sm-7">
+            @Html.DisplayFor(model => model.InduccionShouxin) / @Html.DisplayFor(model => model.InduccionShouxinVigencia)
+        </dd>
+
+        <dt class = "col-sm-5">
+            @Html.DisplayNameFor(model => model.InduccionTisur)
+        </dt>
+        <dd class = "col-sm-7">
+            @Html.DisplayFor(model => model.InduccionTisur)
+        </dd>
+        <dt class = "col-sm-5">
+            @Html.DisplayNameFor(model => model.InduccionRansa)
+        </dt>
+        <dd class = "col-sm-7">
+            @Html.DisplayFor(model => model.InduccionRansa)
+        </dd>
+        <dt class = "col-sm-5">
+            @Html.DisplayNameFor(model => model.InduccionAcerosA)
+        </dt>
+        <dd class = "col-sm-7">
+            @Html.DisplayFor(model => model.InduccionAcerosA)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a asp-action="Index">Regresar</a>
+</div>

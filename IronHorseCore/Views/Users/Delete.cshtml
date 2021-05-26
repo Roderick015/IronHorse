@@ -1,0 +1,87 @@
+﻿@model IronHorseCore.Models.User
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+<div>
+    <h4>Eliminar Usuario</h4>
+    <h6 class="text-danger">¿Estás seguro de que quieres eliminar esto? </h6>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TypeDoc)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TypeDoc)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NumberDoc)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NumberDoc)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CellPhone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CellPhone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastAccess)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastAccess)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Enabled)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Enabled)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Rol)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Rol)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="UniqueId" />
+        <input type="submit" value="Eliminar" class="btn btn-sm btn-danger" /> |
+        <a asp-action="Index">Regresar</a>
+    </form>
+</div>

@@ -1,0 +1,67 @@
+﻿@model IronHorseCore.Models.Clientrate
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div>
+    <h4>Eliminar Cliente</h4>
+    <h6 class="text-danger">¿Estás seguro de que quieres eliminar esto? </h6>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TypeService)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TypeService)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BillableUnit)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BillableUnit)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CollectionUnit)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CollectionUnit)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PriceWithoutVat)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PriceWithoutVat)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ContractNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ContractNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ContractExpiration)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ContractExpiration)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Currency)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Currency)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Client)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Client.Address)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Eliminar" class="btn btn-sm btn-danger" /> |
+        <a asp-action="Index">Regresar</a>
+    </form>
+</div>
