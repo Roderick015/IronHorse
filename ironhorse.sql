@@ -98,11 +98,13 @@ CREATE TABLE IF NOT EXISTS `clientrate` (
   CONSTRAINT `FK_typeproduct` FOREIGN KEY (`TypeProductId`) REFERENCES `typeproduct` (`Id`),
   CONSTRAINT `FK_typeservice` FOREIGN KEY (`TypeServiceId`) REFERENCES `typeservice` (`Id`),
   CONSTRAINT `FK_unit` FOREIGN KEY (`UnitId`) REFERENCES `unit` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ironhorse.clientrate: ~0 rows (aproximadamente)
 DELETE FROM `clientrate`;
 /*!40000 ALTER TABLE `clientrate` DISABLE KEYS */;
+INSERT INTO `clientrate` (`Id`, `ClientId`, `TypeServiceId`, `TypeLoadId`, `TypeProductId`, `Description`, `SourceId`, `DestinyId`, `UnitId`, `MoneyId`, `PriceWithoutVAT`, `ContractNumber`, `ContractExpiration`, `Enabled`, `UniqueId`, `MetaAuth`, `IsRemoved`) VALUES
+	(2, 1, 2, 8, 2, 'Tarifa de ejemplo 1', 9, 1, 1, 1, 15, 'F0001', 'F0002', 0, '3ea329b2-da7e-4929-bbf0-82c1a8c5425a', '{"Created": "2021-05-27T15:22:43.8153726-05:00", "Removed": null, "Modified": "2021-05-27T16:04:47.1112362-05:00", "CreatedUserID": 1, "RemovedUserID": null, "ModifiedUserID": 1}', 0);
 /*!40000 ALTER TABLE `clientrate` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.driver
@@ -227,55 +229,41 @@ DELETE FROM `operationexpenses`;
 DROP TABLE IF EXISTS `operations`;
 CREATE TABLE IF NOT EXISTS `operations` (
   `Id` int NOT NULL AUTO_INCREMENT,
-  `Mes` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `MesAnio` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `DriverId` int NOT NULL DEFAULT '0',
-  `TypeLoadId` int NOT NULL DEFAULT '0',
   `ClientId` int NOT NULL DEFAULT '0',
-  `TypeProductId` int NOT NULL DEFAULT '0',
+  `ClientrateId` int DEFAULT NULL,
   `OutDate` date DEFAULT NULL,
   `EndDate` datetime DEFAULT NULL,
-  `SourceId` int NOT NULL DEFAULT '0',
-  `DestinyId` int NOT NULL DEFAULT '0',
   `TractoId` int NOT NULL DEFAULT '0',
   `CarretaId` int NOT NULL DEFAULT '0',
-  `UnitId` int NOT NULL,
-  `MoneyId` int NOT NULL,
   `LoadDate` datetime DEFAULT NULL,
   `CarrierId` int NOT NULL,
   `OdometerBegin` int NOT NULL,
   `OdometerEnd` int NOT NULL,
   `UnitPay` float NOT NULL,
   `Fuel` float DEFAULT NULL,
+  `Capacity` float DEFAULT NULL,
   PRIMARY KEY (`Id`),
   KEY `FK_operations_driver` (`DriverId`),
   KEY `FK_operations_client` (`ClientId`),
-  KEY `FK_operations_place_source` (`SourceId`),
-  KEY `FK_operations_place_Destiny` (`DestinyId`),
   KEY `FK_operations_truck_tracto` (`TractoId`),
   KEY `FK_operations_truck_carreta` (`CarretaId`),
-  KEY `FK_operations_typeload` (`TypeLoadId`),
-  KEY `FK_operations_typeproduct` (`TypeProductId`),
-  KEY `FK_operations_unit` (`UnitId`),
-  KEY `FK_operations_money` (`MoneyId`),
   KEY `FK_operations_carrier` (`CarrierId`),
+  KEY `FK_operations_clientrate` (`ClientrateId`),
   CONSTRAINT `FK_operations_carrier` FOREIGN KEY (`CarrierId`) REFERENCES `carrier` (`Id`),
   CONSTRAINT `FK_operations_client` FOREIGN KEY (`ClientId`) REFERENCES `client` (`Id`),
+  CONSTRAINT `FK_operations_clientrate` FOREIGN KEY (`ClientrateId`) REFERENCES `clientrate` (`Id`),
   CONSTRAINT `FK_operations_driver` FOREIGN KEY (`DriverId`) REFERENCES `driver` (`Id`),
-  CONSTRAINT `FK_operations_money` FOREIGN KEY (`MoneyId`) REFERENCES `money` (`Id`),
-  CONSTRAINT `FK_operations_place_Destiny` FOREIGN KEY (`DestinyId`) REFERENCES `place` (`Id`),
-  CONSTRAINT `FK_operations_place_source` FOREIGN KEY (`SourceId`) REFERENCES `place` (`Id`),
   CONSTRAINT `FK_operations_truck_carreta` FOREIGN KEY (`CarretaId`) REFERENCES `truck` (`Id`),
-  CONSTRAINT `FK_operations_truck_tracto` FOREIGN KEY (`TractoId`) REFERENCES `truck` (`Id`),
-  CONSTRAINT `FK_operations_typeload` FOREIGN KEY (`TypeLoadId`) REFERENCES `typeload` (`Id`),
-  CONSTRAINT `FK_operations_typeproduct` FOREIGN KEY (`TypeProductId`) REFERENCES `typeproduct` (`Id`),
-  CONSTRAINT `FK_operations_unit` FOREIGN KEY (`UnitId`) REFERENCES `unit` (`Id`)
+  CONSTRAINT `FK_operations_truck_tracto` FOREIGN KEY (`TractoId`) REFERENCES `truck` (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ironhorse.operations: ~0 rows (aproximadamente)
 DELETE FROM `operations`;
 /*!40000 ALTER TABLE `operations` DISABLE KEYS */;
-INSERT INTO `operations` (`Id`, `Mes`, `DriverId`, `TypeLoadId`, `ClientId`, `TypeProductId`, `OutDate`, `EndDate`, `SourceId`, `DestinyId`, `TractoId`, `CarretaId`, `UnitId`, `MoneyId`, `LoadDate`, `CarrierId`, `OdometerBegin`, `OdometerEnd`, `UnitPay`, `Fuel`) VALUES
-	(1, 'Mayo', 2, 1, 1, 1, '2021-05-23', '2021-05-26 00:00:00', 1, 1, 1, 1, 1, 1, '2021-05-23 00:00:00', 1, 0, 0, 3, NULL);
+INSERT INTO `operations` (`Id`, `MesAnio`, `DriverId`, `ClientId`, `ClientrateId`, `OutDate`, `EndDate`, `TractoId`, `CarretaId`, `LoadDate`, `CarrierId`, `OdometerBegin`, `OdometerEnd`, `UnitPay`, `Fuel`, `Capacity`) VALUES
+	(1, '2021-05-21', 2, 1, 2, '2021-05-23', '2021-05-26 00:00:00', 1, 1, '2021-05-23 00:00:00', 1, 0, 0, 3, NULL, NULL);
 /*!40000 ALTER TABLE `operations` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.place
@@ -372,7 +360,7 @@ CREATE TABLE IF NOT EXISTS `typeload` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla ironhorse.typeload: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.typeload: ~10 rows (aproximadamente)
 DELETE FROM `typeload`;
 /*!40000 ALTER TABLE `typeload` DISABLE KEYS */;
 INSERT INTO `typeload` (`Id`, `Name`, `Enabled`) VALUES
@@ -397,7 +385,7 @@ CREATE TABLE IF NOT EXISTS `typeproduct` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla ironhorse.typeproduct: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.typeproduct: ~2 rows (aproximadamente)
 DELETE FROM `typeproduct`;
 /*!40000 ALTER TABLE `typeproduct` DISABLE KEYS */;
 INSERT INTO `typeproduct` (`Id`, `Name`, `Enabled`) VALUES
@@ -412,11 +400,14 @@ CREATE TABLE IF NOT EXISTS `typeservice` (
   `Name` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0',
   `Enabled` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla ironhorse.typeservice: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.typeservice: ~2 rows (aproximadamente)
 DELETE FROM `typeservice`;
 /*!40000 ALTER TABLE `typeservice` DISABLE KEYS */;
+INSERT INTO `typeservice` (`Id`, `Name`, `Enabled`) VALUES
+	(1, 'Alquiler', 1),
+	(2, 'Transporte', 1);
 /*!40000 ALTER TABLE `typeservice` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.unit
@@ -428,7 +419,7 @@ CREATE TABLE IF NOT EXISTS `unit` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla ironhorse.unit: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.unit: ~3 rows (aproximadamente)
 DELETE FROM `unit`;
 /*!40000 ALTER TABLE `unit` DISABLE KEYS */;
 INSERT INTO `unit` (`Id`, `Name`, `Enabled`) VALUES
@@ -459,7 +450,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla ironhorse.user: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.user: ~2 rows (aproximadamente)
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`Id`, `TypeDoc`, `NumberDoc`, `FirstName`, `LastName`, `Email`, `CellPhone`, `Phone`, `Password`, `LastAccess`, `Enabled`, `Rol`, `UniqueId`, `MetaAuth`, `IsRemoved`, `ConfirmationEmail`) VALUES
