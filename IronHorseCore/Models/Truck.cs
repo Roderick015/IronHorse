@@ -35,7 +35,9 @@ namespace IronHorseCore.Models
         public string Propietario { get; set; }
         public string BonificacionPesosMedidas { get; set; }
         public string BonifacionMatpel { get; set; }
+        public int? CarrierId { get; set; }
 
+        public virtual Carrier Carrier { get; set; }
         public virtual ICollection<Operation> OperationCarreta { get; set; }
         public virtual ICollection<Operation> OperationTractos { get; set; }
     }

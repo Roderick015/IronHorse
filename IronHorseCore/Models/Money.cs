@@ -9,12 +9,12 @@ namespace IronHorseCore.Models
     {
         public Money()
         {
-            Operations = new HashSet<Operation>();
+            Clientrates = new HashSet<Clientrate>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<Operation> Operations { get; set; }
+        public virtual ICollection<Clientrate> Clientrates { get; set; }
     }
 }

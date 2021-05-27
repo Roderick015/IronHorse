@@ -15,16 +15,31 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Client)
+                @Html.DisplayNameFor(model => model.ClientId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TypeService)
+                @Html.DisplayNameFor(model => model.TypeServiceId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BillableUnit)
+                @Html.DisplayNameFor(model => model.TypeLoadId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CollectionUnit)
+                @Html.DisplayNameFor(model => model.TypeProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SourceId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DestinyId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MoneyId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PriceWithoutVat)
@@ -35,10 +50,20 @@
             <th>
                 @Html.DisplayNameFor(model => model.ContractExpiration)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Currency)
-            </th>
-
+            @*
+                <th>
+                    @Html.DisplayNameFor(model => model.Enabled)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UniqueId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MetaAuth)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsRemoved)
+                </th>
+            *@
             <th></th>
         </tr>
     </thead>
@@ -50,13 +75,28 @@
                 @Html.DisplayFor(modelItem => item.Client.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TypeService)
+                @Html.DisplayFor(modelItem => item.TypeService.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BillableUnit)
+                @Html.DisplayFor(modelItem => item.TypeLoad.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CollectionUnit)
+                @Html.DisplayFor(modelItem => item.TypeProduct.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Source.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Destiny.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Unit.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Money.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PriceWithoutVat)
@@ -67,19 +107,30 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ContractExpiration)
             </td>
+            @*
             <td>
-                @Html.DisplayFor(modelItem => item.Currency)
+                @Html.DisplayFor(modelItem => item.Enabled)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UniqueId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MetaAuth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsRemoved)
+            </td>
+            *@
             <td nowrap>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="text-primary"><i class="fas fa-edit"></i> Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id" class="text-info"><i class="fas fa-bookmark"></i> Detalle</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger"><i class="fas fa-trash"></i> Eliminar</a>
+                <a asp-action="Edit" asp-route-uniqueid="@item.UniqueId" class="text-primary"><i class="fas fa-edit"></i> Editar</a> |
+                <a asp-action="Details" asp-route-uniqueid="@item.UniqueId" class="text-info"><i class="fas fa-bookmark"></i> Detalle</a> |
+                <a asp-action="Delete" asp-route-uniqueid="@item.UniqueId" class="text-danger"><i class="fas fa-trash"></i> Eliminar</a>
             </td>
-            
-        </tr>
+            </tr>
         }
     </tbody>
 </table>
+
 @section Scripts {
 
     <link href="~/lib/datatables/datatables.css" rel="stylesheet" />

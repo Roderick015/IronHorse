@@ -9,15 +9,15 @@ namespace IronHorseCore.Models
     {
         public Place()
         {
-            OperationDestinies = new HashSet<Operation>();
-            OperationSources = new HashSet<Operation>();
+            ClientrateDestinies = new HashSet<Clientrate>();
+            ClientrateSources = new HashSet<Clientrate>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
         public bool Enabled { get; set; }
 
-        public virtual ICollection<Operation> OperationDestinies { get; set; }
-        public virtual ICollection<Operation> OperationSources { get; set; }
+        public virtual ICollection<Clientrate> ClientrateDestinies { get; set; }
+        public virtual ICollection<Clientrate> ClientrateSources { get; set; }
     }
 }

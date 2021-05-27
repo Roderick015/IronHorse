@@ -10,6 +10,7 @@ namespace IronHorseCore.Models
         public Carrier()
         {
             Operations = new HashSet<Operation>();
+            Trucks = new HashSet<Truck>();
         }
 
         public int Id { get; set; }
@@ -17,5 +18,6 @@ namespace IronHorseCore.Models
         public bool Enabled { get; set; }
 
         public virtual ICollection<Operation> Operations { get; set; }
+        public virtual ICollection<Truck> Trucks { get; set; }
     }
 }

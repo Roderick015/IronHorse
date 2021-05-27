@@ -14,10 +14,12 @@
 
 
 -- Volcando estructura de base de datos para ironhorse
+DROP DATABASE IF EXISTS `ironhorse`;
 CREATE DATABASE IF NOT EXISTS `ironhorse` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `ironhorse`;
 
 -- Volcando estructura para tabla ironhorse.carrier
+DROP TABLE IF EXISTS `carrier`;
 CREATE TABLE IF NOT EXISTS `carrier` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(500) NOT NULL DEFAULT '0',
@@ -26,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `carrier` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ironhorse.carrier: ~4 rows (aproximadamente)
+DELETE FROM `carrier`;
 /*!40000 ALTER TABLE `carrier` DISABLE KEYS */;
 INSERT INTO `carrier` (`Id`, `Name`, `Enabled`) VALUES
 	(1, 'IronHorse', 1),
@@ -35,6 +38,7 @@ INSERT INTO `carrier` (`Id`, `Name`, `Enabled`) VALUES
 /*!40000 ALTER TABLE `carrier` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.client
+DROP TABLE IF EXISTS `client`;
 CREATE TABLE IF NOT EXISTS `client` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL DEFAULT '0',
@@ -51,34 +55,58 @@ CREATE TABLE IF NOT EXISTS `client` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ironhorse.client: ~0 rows (aproximadamente)
+DELETE FROM `client`;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
 INSERT INTO `client` (`Id`, `Name`, `Code`, `Address`, `Contact`, `ContactPhone`, `ContactEmail`, `Enabled`, `UniqueId`, `MetaAuth`, `IsRemoved`) VALUES
 	(1, 'Las Gemelas', '0001', 'Calle Jerusalen 121 of2 Arequipa Arequipa', 'Juan Perez', '201804', 'q@hhh.com', 1, '8174e38f-ebe3-4b4e-ade0-be2169331c2d', '{"Created": "2021-05-13T17:37:17.8978585-05:00", "Removed": null, "Modified": "2021-05-23T18:39:57.5754062-05:00", "CreatedUserID": 1, "RemovedUserID": null, "ModifiedUserID": 1}', 0);
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.clientrate
+DROP TABLE IF EXISTS `clientrate`;
 CREATE TABLE IF NOT EXISTS `clientrate` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `ClientId` int NOT NULL DEFAULT '0',
-  `TypeService` varchar(50) NOT NULL DEFAULT '0' COMMENT 'Tipo de Servicio	',
-  `BillableUnit` varchar(50) NOT NULL DEFAULT '0' COMMENT 'Unidad Facturable',
-  `CollectionUnit` varchar(50) NOT NULL DEFAULT '0' COMMENT 'Unidad de Cobro',
-  `PriceWithoutVAT` varchar(50) NOT NULL DEFAULT '0' COMMENT 'Precio sin IGV	',
-  `ContractNumber` varchar(50) NOT NULL DEFAULT '0' COMMENT 'Número de contrato	',
-  `ContractExpiration` varchar(50) NOT NULL DEFAULT '0' COMMENT 'Vencimiento de contrato',
-  `Currency` varchar(50) NOT NULL DEFAULT '0' COMMENT 'Moneda',
+  `TypeServiceId` int NOT NULL DEFAULT '0' COMMENT 'Tipo de Servicio	',
+  `TypeLoadId` int NOT NULL DEFAULT '0' COMMENT 'Tipo de Carga',
+  `TypeProductId` int NOT NULL DEFAULT '0' COMMENT 'Tipo de Producto',
+  `Description` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Descripcion de Tarifa',
+  `SourceId` int NOT NULL DEFAULT '0' COMMENT 'Origen',
+  `DestinyId` int NOT NULL DEFAULT '0' COMMENT 'Destino',
+  `UnitId` int NOT NULL DEFAULT '0' COMMENT 'Unidad',
+  `MoneyId` int NOT NULL DEFAULT '0' COMMENT 'Moneda',
+  `PriceWithoutVAT` float NOT NULL COMMENT 'Precio sin IGV	',
+  `ContractNumber` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT 'Número de contrato	',
+  `ContractExpiration` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT 'Vencimiento de contrato',
+  `Enabled` tinyint(1) NOT NULL DEFAULT '0',
+  `UniqueId` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `MetaAuth` json NOT NULL,
+  `IsRemoved` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id`),
   KEY `FK__client` (`ClientId`),
-  CONSTRAINT `FK__client` FOREIGN KEY (`ClientId`) REFERENCES `client` (`Id`) ON DELETE CASCADE
+  KEY `FK_typeservice` (`TypeServiceId`),
+  KEY `FK_typeload` (`TypeLoadId`),
+  KEY `FK_typeproduct` (`TypeProductId`),
+  KEY `FK_unit` (`UnitId`),
+  KEY `FK_money` (`MoneyId`),
+  KEY `FK_clientrate_destiny` (`DestinyId`),
+  KEY `FK_clientrate_source` (`SourceId`),
+  CONSTRAINT `FK_client` FOREIGN KEY (`ClientId`) REFERENCES `client` (`Id`),
+  CONSTRAINT `FK_clientrate_destiny` FOREIGN KEY (`DestinyId`) REFERENCES `place` (`Id`),
+  CONSTRAINT `FK_clientrate_source` FOREIGN KEY (`SourceId`) REFERENCES `place` (`Id`),
+  CONSTRAINT `FK_money` FOREIGN KEY (`MoneyId`) REFERENCES `money` (`Id`),
+  CONSTRAINT `FK_typeload` FOREIGN KEY (`TypeLoadId`) REFERENCES `typeload` (`Id`),
+  CONSTRAINT `FK_typeproduct` FOREIGN KEY (`TypeProductId`) REFERENCES `typeproduct` (`Id`),
+  CONSTRAINT `FK_typeservice` FOREIGN KEY (`TypeServiceId`) REFERENCES `typeservice` (`Id`),
+  CONSTRAINT `FK_unit` FOREIGN KEY (`UnitId`) REFERENCES `unit` (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ironhorse.clientrate: ~0 rows (aproximadamente)
+DELETE FROM `clientrate`;
 /*!40000 ALTER TABLE `clientrate` DISABLE KEYS */;
-INSERT INTO `clientrate` (`Id`, `ClientId`, `TypeService`, `BillableUnit`, `CollectionUnit`, `PriceWithoutVAT`, `ContractNumber`, `ContractExpiration`, `Currency`) VALUES
-	(1, 1, 'qqq', 'qq', 'qq', 'qq', 'qq', 'qq', 'qq');
 /*!40000 ALTER TABLE `clientrate` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.driver
+DROP TABLE IF EXISTS `driver`;
 CREATE TABLE IF NOT EXISTS `driver` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL DEFAULT '',
@@ -110,7 +138,8 @@ CREATE TABLE IF NOT EXISTS `driver` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Conductor';
 
--- Volcando datos para la tabla ironhorse.driver: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.driver: ~3 rows (aproximadamente)
+DELETE FROM `driver`;
 /*!40000 ALTER TABLE `driver` DISABLE KEYS */;
 INSERT INTO `driver` (`Id`, `Name`, `BirthDay`, `Status`, `DNI`, `DNIVigencia`, `LicenseDriverNumber`, `LicenseDriverValidaty`, `LicenseDriver2Number`, `LicenseDriver2Validaty`, `IQPF`, `CursosPortuarios`, `CursosPortuariosVigencia`, `InduccionImpala`, `InduccionImpalaVigencia`, `InduccionLogisminsa`, `InduccionLogisminsaVigencia`, `InduccionPerubar`, `InduccionPerubarVigencia`, `InduccionShouxin`, `InduccionShouxinVigencia`, `InduccionTisur`, `InduccionRansa`, `InduccionAcerosA`, `UniqueId`, `MetaAuth`, `IsRemoved`) VALUES
 	(2, 'HUAYTO ACHAHUI EDGAR', '2021-05-14', 1, '46502893', '2021-05-14', '46502893', '2021-05-14', '46502893', '2021-05-14', 1, 1, '2021-05-14', 1, '2021-05-14', 1, '2021-05-14', 1, '2021-05-14', 1, '2021-05-14', 1, 1, 1, '595e624e-b100-4b66-a7bc-a4cc350b6707', '{"Created": "2021-05-14T09:56:23.6960853-05:00", "Removed": null, "Modified": "2021-05-23T16:45:22.5433731-05:00", "CreatedUserID": 1, "RemovedUserID": null, "ModifiedUserID": 1}', 0),
@@ -119,6 +148,7 @@ INSERT INTO `driver` (`Id`, `Name`, `BirthDay`, `Status`, `DNI`, `DNIVigencia`, 
 /*!40000 ALTER TABLE `driver` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.driverexpenses
+DROP TABLE IF EXISTS `driverexpenses`;
 CREATE TABLE IF NOT EXISTS `driverexpenses` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `DriverId` int NOT NULL,
@@ -138,7 +168,8 @@ CREATE TABLE IF NOT EXISTS `driverexpenses` (
   CONSTRAINT `FK_driverexpenses_typeexpenses` FOREIGN KEY (`TypeExpenseId`) REFERENCES `typeexpenses` (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla ironhorse.driverexpenses: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.driverexpenses: ~2 rows (aproximadamente)
+DELETE FROM `driverexpenses`;
 /*!40000 ALTER TABLE `driverexpenses` DISABLE KEYS */;
 INSERT INTO `driverexpenses` (`Id`, `DriverId`, `TypeExpenseId`, `Date`, `Description`, `Amount`, `OperacionDesignada`, `AprobadoPor`, `OperationId`) VALUES
 	(1, 2, 1, '2021-05-23 00:00:00', 'Habitacion de hotel dia 23/05', 150, 1, 1, 1),
@@ -146,6 +177,7 @@ INSERT INTO `driverexpenses` (`Id`, `DriverId`, `TypeExpenseId`, `Date`, `Descri
 /*!40000 ALTER TABLE `driverexpenses` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.maintenance
+DROP TABLE IF EXISTS `maintenance`;
 CREATE TABLE IF NOT EXISTS `maintenance` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `Date` datetime NOT NULL,
@@ -155,10 +187,12 @@ CREATE TABLE IF NOT EXISTS `maintenance` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ironhorse.maintenance: ~0 rows (aproximadamente)
+DELETE FROM `maintenance`;
 /*!40000 ALTER TABLE `maintenance` DISABLE KEYS */;
 /*!40000 ALTER TABLE `maintenance` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.money
+DROP TABLE IF EXISTS `money`;
 CREATE TABLE IF NOT EXISTS `money` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(500) NOT NULL DEFAULT '0',
@@ -166,6 +200,7 @@ CREATE TABLE IF NOT EXISTS `money` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ironhorse.money: ~2 rows (aproximadamente)
+DELETE FROM `money`;
 /*!40000 ALTER TABLE `money` DISABLE KEYS */;
 INSERT INTO `money` (`Id`, `Name`) VALUES
 	(1, 'Soles'),
@@ -173,6 +208,7 @@ INSERT INTO `money` (`Id`, `Name`) VALUES
 /*!40000 ALTER TABLE `money` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.operationexpenses
+DROP TABLE IF EXISTS `operationexpenses`;
 CREATE TABLE IF NOT EXISTS `operationexpenses` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `TypeExpenseId` int NOT NULL,
@@ -183,10 +219,12 @@ CREATE TABLE IF NOT EXISTS `operationexpenses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ironhorse.operationexpenses: ~0 rows (aproximadamente)
+DELETE FROM `operationexpenses`;
 /*!40000 ALTER TABLE `operationexpenses` DISABLE KEYS */;
 /*!40000 ALTER TABLE `operationexpenses` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.operations
+DROP TABLE IF EXISTS `operations`;
 CREATE TABLE IF NOT EXISTS `operations` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `Mes` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -233,13 +271,15 @@ CREATE TABLE IF NOT EXISTS `operations` (
   CONSTRAINT `FK_operations_unit` FOREIGN KEY (`UnitId`) REFERENCES `unit` (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla ironhorse.operations: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.operations: ~0 rows (aproximadamente)
+DELETE FROM `operations`;
 /*!40000 ALTER TABLE `operations` DISABLE KEYS */;
 INSERT INTO `operations` (`Id`, `Mes`, `DriverId`, `TypeLoadId`, `ClientId`, `TypeProductId`, `OutDate`, `EndDate`, `SourceId`, `DestinyId`, `TractoId`, `CarretaId`, `UnitId`, `MoneyId`, `LoadDate`, `CarrierId`, `OdometerBegin`, `OdometerEnd`, `UnitPay`, `Fuel`) VALUES
 	(1, 'Mayo', 2, 1, 1, 1, '2021-05-23', '2021-05-26 00:00:00', 1, 1, 1, 1, 1, 1, '2021-05-23 00:00:00', 1, 0, 0, 3, NULL);
 /*!40000 ALTER TABLE `operations` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.place
+DROP TABLE IF EXISTS `place`;
 CREATE TABLE IF NOT EXISTS `place` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(500) NOT NULL DEFAULT '0',
@@ -247,7 +287,8 @@ CREATE TABLE IF NOT EXISTS `place` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla ironhorse.place: ~11 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.place: ~13 rows (aproximadamente)
+DELETE FROM `place`;
 /*!40000 ALTER TABLE `place` DISABLE KEYS */;
 INSERT INTO `place` (`Id`, `Name`, `Enabled`) VALUES
 	(1, 'Las Bambas', 1),
@@ -266,6 +307,7 @@ INSERT INTO `place` (`Id`, `Name`, `Enabled`) VALUES
 /*!40000 ALTER TABLE `place` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.truck
+DROP TABLE IF EXISTS `truck`;
 CREATE TABLE IF NOT EXISTS `truck` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `Status` tinyint(1) NOT NULL DEFAULT '0',
@@ -289,17 +331,22 @@ CREATE TABLE IF NOT EXISTS `truck` (
   `Propietario` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `BonificacionPesosMedidas` varchar(50) DEFAULT NULL COMMENT 'BonificaciónPesos y Medidas',
   `BonifacionMatpel` varchar(50) DEFAULT NULL COMMENT 'Bonifación Matpel',
-  PRIMARY KEY (`Id`)
+  `CarrierId` int DEFAULT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `FK_truck_carrier` (`CarrierId`),
+  CONSTRAINT `FK_truck_carrier` FOREIGN KEY (`CarrierId`) REFERENCES `carrier` (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla ironhorse.truck: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.truck: ~2 rows (aproximadamente)
+DELETE FROM `truck`;
 /*!40000 ALTER TABLE `truck` DISABLE KEYS */;
-INSERT INTO `truck` (`Id`, `Status`, `IsRemolcado`, `IsSemiremolque`, `SemiremolqueTipo`, `Placa`, `SOATNumero`, `SOATVigencia`, `PolizaNro`, `PolizaVigencia`, `PolizaAccidentesPersonalesVigencia`, `PolizaSeguroTrecVigencia`, `RevisionTecnicaNro`, `RevisionTecnicaVigencia`, `CkecklistInspeccionGeneralVigencia`, `GPSProveedor`, `GPSCertificadoInstalacion`, `TarjetaCirualacionVigencia`, `TarjetaMercaderiaVigencia`, `Propietario`, `BonificacionPesosMedidas`, `BonifacionMatpel`) VALUES
-	(1, 1, 0, 1, '1', 'V8B 863', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-	(2, 1, 1, 0, '1', 'ANT-993', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `truck` (`Id`, `Status`, `IsRemolcado`, `IsSemiremolque`, `SemiremolqueTipo`, `Placa`, `SOATNumero`, `SOATVigencia`, `PolizaNro`, `PolizaVigencia`, `PolizaAccidentesPersonalesVigencia`, `PolizaSeguroTrecVigencia`, `RevisionTecnicaNro`, `RevisionTecnicaVigencia`, `CkecklistInspeccionGeneralVigencia`, `GPSProveedor`, `GPSCertificadoInstalacion`, `TarjetaCirualacionVigencia`, `TarjetaMercaderiaVigencia`, `Propietario`, `BonificacionPesosMedidas`, `BonifacionMatpel`, `CarrierId`) VALUES
+	(1, 1, 0, 1, '1', 'V8B 863', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+	(2, 1, 1, 0, '1', 'ANT-993', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
 /*!40000 ALTER TABLE `truck` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.typeexpenses
+DROP TABLE IF EXISTS `typeexpenses`;
 CREATE TABLE IF NOT EXISTS `typeexpenses` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(40) NOT NULL,
@@ -307,7 +354,8 @@ CREATE TABLE IF NOT EXISTS `typeexpenses` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla ironhorse.typeexpenses: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.typeexpenses: ~3 rows (aproximadamente)
+DELETE FROM `typeexpenses`;
 /*!40000 ALTER TABLE `typeexpenses` DISABLE KEYS */;
 INSERT INTO `typeexpenses` (`Id`, `Name`, `Enabled`) VALUES
 	(1, 'Habitación', NULL),
@@ -316,6 +364,7 @@ INSERT INTO `typeexpenses` (`Id`, `Name`, `Enabled`) VALUES
 /*!40000 ALTER TABLE `typeexpenses` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.typeload
+DROP TABLE IF EXISTS `typeload`;
 CREATE TABLE IF NOT EXISTS `typeload` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(500) NOT NULL DEFAULT '0',
@@ -323,7 +372,8 @@ CREATE TABLE IF NOT EXISTS `typeload` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla ironhorse.typeload: ~8 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.typeload: ~0 rows (aproximadamente)
+DELETE FROM `typeload`;
 /*!40000 ALTER TABLE `typeload` DISABLE KEYS */;
 INSERT INTO `typeload` (`Id`, `Name`, `Enabled`) VALUES
 	(1, 'Bolas en desuso', 1),
@@ -339,6 +389,7 @@ INSERT INTO `typeload` (`Id`, `Name`, `Enabled`) VALUES
 /*!40000 ALTER TABLE `typeload` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.typeproduct
+DROP TABLE IF EXISTS `typeproduct`;
 CREATE TABLE IF NOT EXISTS `typeproduct` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(500) NOT NULL DEFAULT '0',
@@ -346,14 +397,30 @@ CREATE TABLE IF NOT EXISTS `typeproduct` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla ironhorse.typeproduct: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.typeproduct: ~0 rows (aproximadamente)
+DELETE FROM `typeproduct`;
 /*!40000 ALTER TABLE `typeproduct` DISABLE KEYS */;
 INSERT INTO `typeproduct` (`Id`, `Name`, `Enabled`) VALUES
 	(1, 'Estandar', 1),
 	(2, 'Controlado', 1);
 /*!40000 ALTER TABLE `typeproduct` ENABLE KEYS */;
 
+-- Volcando estructura para tabla ironhorse.typeservice
+DROP TABLE IF EXISTS `typeservice`;
+CREATE TABLE IF NOT EXISTS `typeservice` (
+  `Id` int NOT NULL AUTO_INCREMENT,
+  `Name` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0',
+  `Enabled` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Volcando datos para la tabla ironhorse.typeservice: ~0 rows (aproximadamente)
+DELETE FROM `typeservice`;
+/*!40000 ALTER TABLE `typeservice` DISABLE KEYS */;
+/*!40000 ALTER TABLE `typeservice` ENABLE KEYS */;
+
 -- Volcando estructura para tabla ironhorse.unit
+DROP TABLE IF EXISTS `unit`;
 CREATE TABLE IF NOT EXISTS `unit` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(500) NOT NULL DEFAULT '0',
@@ -361,7 +428,8 @@ CREATE TABLE IF NOT EXISTS `unit` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla ironhorse.unit: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.unit: ~0 rows (aproximadamente)
+DELETE FROM `unit`;
 /*!40000 ALTER TABLE `unit` DISABLE KEYS */;
 INSERT INTO `unit` (`Id`, `Name`, `Enabled`) VALUES
 	(1, 'Tonelada', 1),
@@ -370,6 +438,7 @@ INSERT INTO `unit` (`Id`, `Name`, `Enabled`) VALUES
 /*!40000 ALTER TABLE `unit` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.user
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `TypeDoc` varchar(18) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -390,7 +459,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla ironhorse.user: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.user: ~0 rows (aproximadamente)
+DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`Id`, `TypeDoc`, `NumberDoc`, `FirstName`, `LastName`, `Email`, `CellPhone`, `Phone`, `Password`, `LastAccess`, `Enabled`, `Rol`, `UniqueId`, `MetaAuth`, `IsRemoved`, `ConfirmationEmail`) VALUES
 	(1, 'DNI', '46544659', 'Roderick', 'Cusirramos', 'roderick20@hotmail.com', '654', '564', 'Aladino?09', '0001-01-01 00:00:00', 1, 'Gerente de Operaciones', '4fb2eca3-30f3-42ff-9fd5-3f176bcbd64e', '{"Created": "2021-05-13T15:44:59.7208707-05:00", "Removed": null, "Modified": "2021-05-13T15:44:59.7209327-05:00", "CreatedUserID": 1, "RemovedUserID": null, "ModifiedUserID": 1}', 0, 1),

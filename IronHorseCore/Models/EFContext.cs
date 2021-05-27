@@ -31,6 +31,7 @@ namespace IronHorseCore.Models
         public virtual DbSet<Typeexpense> Typeexpenses { get; set; }
         public virtual DbSet<Typeload> Typeloads { get; set; }
         public virtual DbSet<Typeproduct> Typeproducts { get; set; }
+        public virtual DbSet<Typeservice> Typeservices { get; set; }
         public virtual DbSet<Unit> Units { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
@@ -104,17 +105,19 @@ namespace IronHorseCore.Models
 
                 entity.HasIndex(e => e.ClientId, "FK__client");
 
-                entity.Property(e => e.BillableUnit)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .HasDefaultValueSql("'0'")
-                    .HasComment("Unidad Facturable");
+                entity.HasIndex(e => e.DestinyId, "FK_clientrate_destiny");
 
-                entity.Property(e => e.CollectionUnit)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .HasDefaultValueSql("'0'")
-                    .HasComment("Unidad de Cobro");
+                entity.HasIndex(e => e.SourceId, "FK_clientrate_source");
+
+                entity.HasIndex(e => e.MoneyId, "FK_money");
+
+                entity.HasIndex(e => e.TypeLoadId, "FK_typeload");
+
+                entity.HasIndex(e => e.TypeProductId, "FK_typeproduct");
+
+                entity.HasIndex(e => e.TypeServiceId, "FK_typeservice");
+
+                entity.HasIndex(e => e.UnitId, "FK_unit");
 
                 entity.Property(e => e.ContractExpiration)
                     .IsRequired()
@@ -128,29 +131,84 @@ namespace IronHorseCore.Models
                     .HasDefaultValueSql("'0'")
                     .HasComment("Número de contrato	");
 
-                entity.Property(e => e.Currency)
+                entity.Property(e => e.Description)
                     .IsRequired()
-                    .HasMaxLength(50)
-                    .HasDefaultValueSql("'0'")
-                    .HasComment("Moneda");
+                    .HasColumnType("mediumtext")
+                    .HasComment("Descripcion de Tarifa");
+
+                entity.Property(e => e.DestinyId).HasComment("Destino");
+
+                entity.Property(e => e.MetaAuth)
+                    .IsRequired()
+                    .HasColumnType("json");
+
+                entity.Property(e => e.MoneyId).HasComment("Moneda");
 
                 entity.Property(e => e.PriceWithoutVat)
-                    .IsRequired()
-                    .HasMaxLength(50)
                     .HasColumnName("PriceWithoutVAT")
-                    .HasDefaultValueSql("'0'")
                     .HasComment("Precio sin IGV	");
 
-                entity.Property(e => e.TypeService)
+                entity.Property(e => e.SourceId).HasComment("Origen");
+
+                entity.Property(e => e.TypeLoadId).HasComment("Tipo de Carga");
+
+                entity.Property(e => e.TypeProductId).HasComment("Tipo de Producto");
+
+                entity.Property(e => e.TypeServiceId).HasComment("Tipo de Servicio	");
+
+                entity.Property(e => e.UniqueId)
                     .IsRequired()
-                    .HasMaxLength(50)
-                    .HasDefaultValueSql("'0'")
-                    .HasComment("Tipo de Servicio	");
+                    .HasMaxLength(36);
+
+                entity.Property(e => e.UnitId).HasComment("Unidad");
 
                 entity.HasOne(d => d.Client)
                     .WithMany(p => p.Clientrates)
                     .HasForeignKey(d => d.ClientId)
-                    .HasConstraintName("FK__client");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_client");
+
+                entity.HasOne(d => d.Destiny)
+                    .WithMany(p => p.ClientrateDestinies)
+                    .HasForeignKey(d => d.DestinyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_clientrate_destiny");
+
+                entity.HasOne(d => d.Money)
+                    .WithMany(p => p.Clientrates)
+                    .HasForeignKey(d => d.MoneyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_money");
+
+                entity.HasOne(d => d.Source)
+                    .WithMany(p => p.ClientrateSources)
+                    .HasForeignKey(d => d.SourceId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_clientrate_source");
+
+                entity.HasOne(d => d.TypeLoad)
+                    .WithMany(p => p.Clientrates)
+                    .HasForeignKey(d => d.TypeLoadId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_typeload");
+
+                entity.HasOne(d => d.TypeProduct)
+                    .WithMany(p => p.Clientrates)
+                    .HasForeignKey(d => d.TypeProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_typeproduct");
+
+                entity.HasOne(d => d.TypeService)
+                    .WithMany(p => p.Clientrates)
+                    .HasForeignKey(d => d.TypeServiceId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_typeservice");
+
+                entity.HasOne(d => d.Unit)
+                    .WithMany(p => p.Clientrates)
+                    .HasForeignKey(d => d.UnitId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_unit");
             });
 
             modelBuilder.Entity<Driver>(entity =>
@@ -312,27 +370,15 @@ namespace IronHorseCore.Models
 
                 entity.HasIndex(e => e.DriverId, "FK_operations_driver");
 
-                entity.HasIndex(e => e.MoneyId, "FK_operations_money");
-
-                entity.HasIndex(e => e.DestinyId, "FK_operations_place_Destiny");
-
-                entity.HasIndex(e => e.SourceId, "FK_operations_place_source");
-
                 entity.HasIndex(e => e.CarretaId, "FK_operations_truck_carreta");
 
                 entity.HasIndex(e => e.TractoId, "FK_operations_truck_tracto");
-
-                entity.HasIndex(e => e.TypeLoadId, "FK_operations_typeload");
-
-                entity.HasIndex(e => e.TypeProductId, "FK_operations_typeproduct");
-
-                entity.HasIndex(e => e.UnitId, "FK_operations_unit");
 
                 entity.Property(e => e.EndDate).HasColumnType("datetime");
 
                 entity.Property(e => e.LoadDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Mes)
+                entity.Property(e => e.MesAnio)
                     .IsRequired()
                     .HasMaxLength(50);
 
@@ -356,53 +402,17 @@ namespace IronHorseCore.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_operations_client");
 
-                entity.HasOne(d => d.Destiny)
-                    .WithMany(p => p.OperationDestinies)
-                    .HasForeignKey(d => d.DestinyId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_operations_place_Destiny");
-
                 entity.HasOne(d => d.Driver)
                     .WithMany(p => p.Operations)
                     .HasForeignKey(d => d.DriverId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_operations_driver");
 
-                entity.HasOne(d => d.Money)
-                    .WithMany(p => p.Operations)
-                    .HasForeignKey(d => d.MoneyId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_operations_money");
-
-                entity.HasOne(d => d.Source)
-                    .WithMany(p => p.OperationSources)
-                    .HasForeignKey(d => d.SourceId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_operations_place_source");
-
                 entity.HasOne(d => d.Tracto)
                     .WithMany(p => p.OperationTractos)
                     .HasForeignKey(d => d.TractoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_operations_truck_tracto");
-
-                entity.HasOne(d => d.TypeLoad)
-                    .WithMany(p => p.Operations)
-                    .HasForeignKey(d => d.TypeLoadId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_operations_typeload");
-
-                entity.HasOne(d => d.TypeProduct)
-                    .WithMany(p => p.Operations)
-                    .HasForeignKey(d => d.TypeProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_operations_typeproduct");
-
-                entity.HasOne(d => d.Unit)
-                    .WithMany(p => p.Operations)
-                    .HasForeignKey(d => d.UnitId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_operations_unit");
             });
 
             modelBuilder.Entity<Operationexpense>(entity =>
@@ -433,6 +443,8 @@ namespace IronHorseCore.Models
             modelBuilder.Entity<Truck>(entity =>
             {
                 entity.ToTable("truck");
+
+                entity.HasIndex(e => e.CarrierId, "FK_truck_carrier");
 
                 entity.Property(e => e.BonifacionMatpel)
                     .HasMaxLength(50)
@@ -500,6 +512,11 @@ namespace IronHorseCore.Models
                 entity.Property(e => e.TarjetaCirualacionVigencia).HasColumnType("date");
 
                 entity.Property(e => e.TarjetaMercaderiaVigencia).HasColumnType("date");
+
+                entity.HasOne(d => d.Carrier)
+                    .WithMany(p => p.Trucks)
+                    .HasForeignKey(d => d.CarrierId)
+                    .HasConstraintName("FK_truck_carrier");
             });
 
             modelBuilder.Entity<Typeexpense>(entity =>
@@ -524,6 +541,16 @@ namespace IronHorseCore.Models
             modelBuilder.Entity<Typeproduct>(entity =>
             {
                 entity.ToTable("typeproduct");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(500)
+                    .HasDefaultValueSql("'0'");
+            });
+
+            modelBuilder.Entity<Typeservice>(entity =>
+            {
+                entity.ToTable("typeservice");
 
                 entity.Property(e => e.Name)
                     .IsRequired()

@@ -21,7 +21,8 @@ namespace IronHorseCore.Controllers
         // GET: Trucks
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Trucks.ToListAsync());
+            var eFContext = _context.Trucks.Include(t => t.Carrier);
+            return View(await eFContext.ToListAsync());
         }
 
         // GET: Trucks/Details/5
@@ -33,6 +34,7 @@ namespace IronHorseCore.Controllers
             }
 
             var truck = await _context.Trucks
+                .Include(t => t.Carrier)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (truck == null)
             {
@@ -45,6 +47,7 @@ namespace IronHorseCore.Controllers
         // GET: Trucks/Create
         public IActionResult Create()
         {
+            ViewData["CarrierId"] = new SelectList(_context.Carriers, "Id", "Name");
             return View();
         }
 
@@ -53,7 +56,7 @@ namespace IronHorseCore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Status,IsRemolcado,IsSemiremolque,SemiremolqueTipo,Placa,Soatnumero,Soatvigencia,PolizaNro,PolizaVigencia,PolizaAccidentesPersonalesVigencia,PolizaSeguroTrecVigencia,RevisionTecnicaNro,RevisionTecnicaVigencia,CkecklistInspeccionGeneralVigencia,Gpsproveedor,GpscertificadoInstalacion,TarjetaCirualacionVigencia,TarjetaMercaderiaVigencia,Propietario,BonificacionPesosMedidas,BonifacionMatpel")] Truck truck)
+        public async Task<IActionResult> Create([Bind("Id,Status,IsRemolcado,IsSemiremolque,SemiremolqueTipo,Placa,Soatnumero,Soatvigencia,PolizaNro,PolizaVigencia,PolizaAccidentesPersonalesVigencia,PolizaSeguroTrecVigencia,RevisionTecnicaNro,RevisionTecnicaVigencia,CkecklistInspeccionGeneralVigencia,Gpsproveedor,GpscertificadoInstalacion,TarjetaCirualacionVigencia,TarjetaMercaderiaVigencia,Propietario,BonificacionPesosMedidas,BonifacionMatpel,CarrierId")] Truck truck)
         {
             if (ModelState.IsValid)
             {
@@ -61,6 +64,7 @@ namespace IronHorseCore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CarrierId"] = new SelectList(_context.Carriers, "Id", "Name", truck.CarrierId);
             return View(truck);
         }
 
@@ -77,6 +81,7 @@ namespace IronHorseCore.Controllers
             {
                 return NotFound();
             }
+            ViewData["CarrierId"] = new SelectList(_context.Carriers, "Id", "Name", truck.CarrierId);
             return View(truck);
         }
 
@@ -85,7 +90,7 @@ namespace IronHorseCore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Status,IsRemolcado,IsSemiremolque,SemiremolqueTipo,Placa,Soatnumero,Soatvigencia,PolizaNro,PolizaVigencia,PolizaAccidentesPersonalesVigencia,PolizaSeguroTrecVigencia,RevisionTecnicaNro,RevisionTecnicaVigencia,CkecklistInspeccionGeneralVigencia,Gpsproveedor,GpscertificadoInstalacion,TarjetaCirualacionVigencia,TarjetaMercaderiaVigencia,Propietario,BonificacionPesosMedidas,BonifacionMatpel")] Truck truck)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Status,IsRemolcado,IsSemiremolque,SemiremolqueTipo,Placa,Soatnumero,Soatvigencia,PolizaNro,PolizaVigencia,PolizaAccidentesPersonalesVigencia,PolizaSeguroTrecVigencia,RevisionTecnicaNro,RevisionTecnicaVigencia,CkecklistInspeccionGeneralVigencia,Gpsproveedor,GpscertificadoInstalacion,TarjetaCirualacionVigencia,TarjetaMercaderiaVigencia,Propietario,BonificacionPesosMedidas,BonifacionMatpel,CarrierId")] Truck truck)
         {
             if (id != truck.Id)
             {
@@ -112,6 +117,7 @@ namespace IronHorseCore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CarrierId"] = new SelectList(_context.Carriers, "Id", "Name", truck.CarrierId);
             return View(truck);
         }
 
@@ -124,6 +130,7 @@ namespace IronHorseCore.Controllers
             }
 
             var truck = await _context.Trucks
+                .Include(t => t.Carrier)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (truck == null)
             {

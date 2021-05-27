@@ -14,29 +14,37 @@ namespace IronHorseCore.Models
     }
 
     public interface ClientrateMetaData
-        {
-
+    {
+        [Display(Name = "Cliente")]
         public int ClientId { get; set; }
-
         [Display(Name = "Tipo de Servicio")]
-        public string TypeService { get; set; }
-
-        [Display(Name = "Unidad de pago")]
-        public string BillableUnit { get; set; }
-
-        [Display(Name = "Habilitado")]
-        public string CollectionUnit { get; set; }
-
+        public int TypeServiceId { get; set; }
+        [Display(Name = "Tipo de Carga")]
+        public int TypeLoadId { get; set; }
+        [Display(Name = "Tipo de Producto")]
+        public int TypeProductId { get; set; }
+        [Display(Name = "Descripcion")]
+        public string Description { get; set; }
+        [Display(Name = "Origen")]
+        public int SourceId { get; set; }
+        [Display(Name = "Destino")]
+        public int DestinyId { get; set; }
+        [Display(Name = "Unidad")]
+        public int UnitId { get; set; }
+        [Display(Name = "Moneda")]
+        public int MoneyId { get; set; }
         [Display(Name = "Precio sin IGV")]
-        public string PriceWithoutVat { get; set; }
-
+        public float PriceWithoutVat { get; set; }
         [Display(Name = "Número de Contrato")]
         public string ContractNumber { get; set; }
-
         [Display(Name = "Expiracion de Contrato")]
         public string ContractExpiration { get; set; }
 
-        [Display(Name = "Moneda")]
-        public string Currency { get; set; }
+
+
+
+
+
+
     }
 }

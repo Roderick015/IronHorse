@@ -28,9 +28,9 @@ namespace IronHorseCore.Controllers
         }
 
         // GET: Clients/Details/5
-        public async Task<IActionResult> Details(String id)
+        public async Task<IActionResult> Details(String uniqueid)
         {
-            var client = await _context.Clients.FirstOrDefaultAsync(m => m.UniqueId == id);
+            var client = await _context.Clients.FirstOrDefaultAsync(m => m.UniqueId == uniqueid);
             return View(client);
         }
 

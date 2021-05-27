@@ -5,27 +5,63 @@
 }
 
 <div>
-    <h4>Eliminar Cliente</h4>
+    <h4>Eliminar Tarifa</h4>
     <h6 class="text-danger">¿Estás seguro de que quieres eliminar esto? </h6>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TypeService)
+            @Html.DisplayNameFor(model => model.ClientId)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TypeService)
+            @Html.DisplayFor(model => model.Client.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.BillableUnit)
+            @Html.DisplayNameFor(model => model.TypeServiceId)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.BillableUnit)
+            @Html.DisplayFor(model => model.TypeService.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CollectionUnit)
+            @Html.DisplayNameFor(model => model.TypeLoadId)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CollectionUnit)
+            @Html.DisplayFor(model => model.TypeLoad.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TypeProductId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TypeProduct.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SourceId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Source.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DestinyId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Destiny.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UnitId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Unit.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MoneyId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Money.Name)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.PriceWithoutVat)
@@ -45,22 +81,36 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ContractExpiration)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Currency)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Currency)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Client)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Client.Address)
-        </dd>
+        @*
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Enabled)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Enabled)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.UniqueId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.UniqueId)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MetaAuth)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MetaAuth)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.IsRemoved)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IsRemoved)
+            </dd>
+        *@
     </dl>
 
     <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="UniqueId" />
         <input type="submit" value="Eliminar" class="btn btn-sm btn-danger" /> |
         <a asp-action="Index">Regresar</a>
     </form>

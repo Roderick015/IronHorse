@@ -22,5 +22,6 @@ namespace IronHorseCore.Models
         public string UniqueId { get; set; }
         public string MetaAuth { get; set; }
         public bool IsRemoved { get; set; }
+        public bool ConfirmationEmail { get; set; }
     }
 }

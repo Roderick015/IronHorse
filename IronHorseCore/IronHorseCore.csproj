@@ -6,6 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Views\Clientrates\Create.cshtml" />
+    <None Include="Views\Clientrates\Delete.cshtml" />
+    <None Include="Views\Clientrates\Details.cshtml" />
+    <None Include="Views\Clientrates\Edit.cshtml" />
+    <None Include="Views\Clientrates\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="BundlerMinifier.Core" Version="3.2.449" />
     <PackageReference Include="ClosedXML" Version="0.95.4" />
@@ -24,5 +32,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.0" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>
