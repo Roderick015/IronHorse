@@ -98,11 +98,13 @@ CREATE TABLE IF NOT EXISTS `clientrate` (
   CONSTRAINT `FK_typeproduct` FOREIGN KEY (`TypeProductId`) REFERENCES `typeproduct` (`Id`),
   CONSTRAINT `FK_typeservice` FOREIGN KEY (`TypeServiceId`) REFERENCES `typeservice` (`Id`),
   CONSTRAINT `FK_unit` FOREIGN KEY (`UnitId`) REFERENCES `unit` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ironhorse.clientrate: ~0 rows (aproximadamente)
 DELETE FROM `clientrate`;
 /*!40000 ALTER TABLE `clientrate` DISABLE KEYS */;
+INSERT INTO `clientrate` (`Id`, `ClientId`, `TypeServiceId`, `TypeLoadId`, `TypeProductId`, `Description`, `SourceId`, `DestinyId`, `UnitId`, `MoneyId`, `PriceWithoutVAT`, `ContractNumber`, `ContractExpiration`, `Enabled`, `UniqueId`, `MetaAuth`, `IsRemoved`) VALUES
+	(2, 1, 2, 8, 2, 'Tarifa de ejemplo 1', 9, 1, 1, 1, 15, 'F0001', 'F0002', 0, '3ea329b2-da7e-4929-bbf0-82c1a8c5425a', '{"Created": "2021-05-27T15:22:43.8153726-05:00", "Removed": null, "Modified": "2021-05-27T16:04:47.1112362-05:00", "CreatedUserID": 1, "RemovedUserID": null, "ModifiedUserID": 1}', 0);
 /*!40000 ALTER TABLE `clientrate` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.driver
@@ -358,7 +360,7 @@ CREATE TABLE IF NOT EXISTS `typeload` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla ironhorse.typeload: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.typeload: ~10 rows (aproximadamente)
 DELETE FROM `typeload`;
 /*!40000 ALTER TABLE `typeload` DISABLE KEYS */;
 INSERT INTO `typeload` (`Id`, `Name`, `Enabled`) VALUES
@@ -383,7 +385,7 @@ CREATE TABLE IF NOT EXISTS `typeproduct` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla ironhorse.typeproduct: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.typeproduct: ~2 rows (aproximadamente)
 DELETE FROM `typeproduct`;
 /*!40000 ALTER TABLE `typeproduct` DISABLE KEYS */;
 INSERT INTO `typeproduct` (`Id`, `Name`, `Enabled`) VALUES
@@ -398,11 +400,14 @@ CREATE TABLE IF NOT EXISTS `typeservice` (
   `Name` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0',
   `Enabled` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla ironhorse.typeservice: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.typeservice: ~2 rows (aproximadamente)
 DELETE FROM `typeservice`;
 /*!40000 ALTER TABLE `typeservice` DISABLE KEYS */;
+INSERT INTO `typeservice` (`Id`, `Name`, `Enabled`) VALUES
+	(1, 'Alquiler', 1),
+	(2, 'Transporte', 1);
 /*!40000 ALTER TABLE `typeservice` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.unit
@@ -414,7 +419,7 @@ CREATE TABLE IF NOT EXISTS `unit` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla ironhorse.unit: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.unit: ~3 rows (aproximadamente)
 DELETE FROM `unit`;
 /*!40000 ALTER TABLE `unit` DISABLE KEYS */;
 INSERT INTO `unit` (`Id`, `Name`, `Enabled`) VALUES
@@ -445,7 +450,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Volcando datos para la tabla ironhorse.user: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla ironhorse.user: ~2 rows (aproximadamente)
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`Id`, `TypeDoc`, `NumberDoc`, `FirstName`, `LastName`, `Email`, `CellPhone`, `Phone`, `Password`, `LastAccess`, `Enabled`, `Rol`, `UniqueId`, `MetaAuth`, `IsRemoved`, `ConfirmationEmail`) VALUES
