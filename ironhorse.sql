@@ -227,55 +227,41 @@ DELETE FROM `operationexpenses`;
 DROP TABLE IF EXISTS `operations`;
 CREATE TABLE IF NOT EXISTS `operations` (
   `Id` int NOT NULL AUTO_INCREMENT,
-  `Mes` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `MesAnio` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `DriverId` int NOT NULL DEFAULT '0',
-  `TypeLoadId` int NOT NULL DEFAULT '0',
   `ClientId` int NOT NULL DEFAULT '0',
-  `TypeProductId` int NOT NULL DEFAULT '0',
+  `ClientrateId` int DEFAULT NULL,
   `OutDate` date DEFAULT NULL,
   `EndDate` datetime DEFAULT NULL,
-  `SourceId` int NOT NULL DEFAULT '0',
-  `DestinyId` int NOT NULL DEFAULT '0',
   `TractoId` int NOT NULL DEFAULT '0',
   `CarretaId` int NOT NULL DEFAULT '0',
-  `UnitId` int NOT NULL,
-  `MoneyId` int NOT NULL,
   `LoadDate` datetime DEFAULT NULL,
   `CarrierId` int NOT NULL,
   `OdometerBegin` int NOT NULL,
   `OdometerEnd` int NOT NULL,
   `UnitPay` float NOT NULL,
   `Fuel` float DEFAULT NULL,
+  `Capacity` float DEFAULT NULL,
   PRIMARY KEY (`Id`),
   KEY `FK_operations_driver` (`DriverId`),
   KEY `FK_operations_client` (`ClientId`),
-  KEY `FK_operations_place_source` (`SourceId`),
-  KEY `FK_operations_place_Destiny` (`DestinyId`),
   KEY `FK_operations_truck_tracto` (`TractoId`),
   KEY `FK_operations_truck_carreta` (`CarretaId`),
-  KEY `FK_operations_typeload` (`TypeLoadId`),
-  KEY `FK_operations_typeproduct` (`TypeProductId`),
-  KEY `FK_operations_unit` (`UnitId`),
-  KEY `FK_operations_money` (`MoneyId`),
   KEY `FK_operations_carrier` (`CarrierId`),
+  KEY `FK_operations_clientrate` (`ClientrateId`),
   CONSTRAINT `FK_operations_carrier` FOREIGN KEY (`CarrierId`) REFERENCES `carrier` (`Id`),
   CONSTRAINT `FK_operations_client` FOREIGN KEY (`ClientId`) REFERENCES `client` (`Id`),
+  CONSTRAINT `FK_operations_clientrate` FOREIGN KEY (`ClientrateId`) REFERENCES `clientrate` (`Id`),
   CONSTRAINT `FK_operations_driver` FOREIGN KEY (`DriverId`) REFERENCES `driver` (`Id`),
-  CONSTRAINT `FK_operations_money` FOREIGN KEY (`MoneyId`) REFERENCES `money` (`Id`),
-  CONSTRAINT `FK_operations_place_Destiny` FOREIGN KEY (`DestinyId`) REFERENCES `place` (`Id`),
-  CONSTRAINT `FK_operations_place_source` FOREIGN KEY (`SourceId`) REFERENCES `place` (`Id`),
   CONSTRAINT `FK_operations_truck_carreta` FOREIGN KEY (`CarretaId`) REFERENCES `truck` (`Id`),
-  CONSTRAINT `FK_operations_truck_tracto` FOREIGN KEY (`TractoId`) REFERENCES `truck` (`Id`),
-  CONSTRAINT `FK_operations_typeload` FOREIGN KEY (`TypeLoadId`) REFERENCES `typeload` (`Id`),
-  CONSTRAINT `FK_operations_typeproduct` FOREIGN KEY (`TypeProductId`) REFERENCES `typeproduct` (`Id`),
-  CONSTRAINT `FK_operations_unit` FOREIGN KEY (`UnitId`) REFERENCES `unit` (`Id`)
+  CONSTRAINT `FK_operations_truck_tracto` FOREIGN KEY (`TractoId`) REFERENCES `truck` (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ironhorse.operations: ~0 rows (aproximadamente)
 DELETE FROM `operations`;
 /*!40000 ALTER TABLE `operations` DISABLE KEYS */;
-INSERT INTO `operations` (`Id`, `Mes`, `DriverId`, `TypeLoadId`, `ClientId`, `TypeProductId`, `OutDate`, `EndDate`, `SourceId`, `DestinyId`, `TractoId`, `CarretaId`, `UnitId`, `MoneyId`, `LoadDate`, `CarrierId`, `OdometerBegin`, `OdometerEnd`, `UnitPay`, `Fuel`) VALUES
-	(1, 'Mayo', 2, 1, 1, 1, '2021-05-23', '2021-05-26 00:00:00', 1, 1, 1, 1, 1, 1, '2021-05-23 00:00:00', 1, 0, 0, 3, NULL);
+INSERT INTO `operations` (`Id`, `MesAnio`, `DriverId`, `ClientId`, `ClientrateId`, `OutDate`, `EndDate`, `TractoId`, `CarretaId`, `LoadDate`, `CarrierId`, `OdometerBegin`, `OdometerEnd`, `UnitPay`, `Fuel`, `Capacity`) VALUES
+	(1, '2021-05-21', 2, 1, 2, '2021-05-23', '2021-05-26 00:00:00', 1, 1, '2021-05-23 00:00:00', 1, 0, 0, 3, NULL, NULL);
 /*!40000 ALTER TABLE `operations` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.place
