@@ -4,7 +4,6 @@
     ViewData["Title"] = "Details";
     float sumaGatos = 0;
 }
-
 <h4>Detalle de la Operación</h4>
 <hr />
 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -25,10 +24,10 @@
     <div class="tab-pane fade show active p-2" id="home" role="tabpanel" aria-labelledby="home-tab">
         <dl class="row">
             <dt class="col-sm-5">
-                @Html.DisplayNameFor(model => model.Mes)
+                @Html.DisplayNameFor(model => model.MonthYear)
             </dt>
             <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.Mes)
+                @Html.DisplayFor(model => model.MonthYear)
             </dd>
             <dt class="col-sm-5">
                 @Html.DisplayNameFor(model => model.ClientId)
@@ -42,18 +41,7 @@
             <dd class="col-sm-7">
                 @Html.DisplayFor(model => model.Carrier.Name)
             </dd>
-            <dt class="col-sm-5">
-                @Html.DisplayNameFor(model => model.TypeLoadId)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.TypeLoad.Name)
-            </dd>
-            <dt class="col-sm-5">
-                @Html.DisplayNameFor(model => model.TypeProductId)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.TypeProduct.Name)
-            </dd>
+            
             <dt class="col-sm-5">
                 @Html.DisplayNameFor(model => model.LoadDate)
             </dt>
@@ -72,18 +60,7 @@
             <dd class="col-sm-7">
                 @Convert.ToDateTime(Model.EndDate).ToString("dd/MM/yyyy")
             </dd>
-            <dt class="col-sm-5">
-                @Html.DisplayNameFor(model => model.SourceId)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.Source.Name)
-            </dd>
-            <dt class="col-sm-5">
-                @Html.DisplayNameFor(model => model.DestinyId)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.Destiny.Name)
-            </dd>
+            
             <dt class="col-sm-5">
                 @Html.DisplayNameFor(model => model.DriverId)
             </dt>
@@ -102,24 +79,14 @@
             <dd class="col-sm-7">
                 @Html.DisplayFor(model => model.Carreta.Id)
             </dd>
-            <dt class="col-sm-5">
-                @Html.DisplayNameFor(model => model.UnitId)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.Unit.Name)
-            </dd>
+            
             <dt class="col-sm-5">
                 @Html.DisplayNameFor(model => model.UnitPay)
             </dt>
             <dd class="col-sm-7">
                 @Html.DisplayFor(model => model.UnitPay)
             </dd>
-            <dt class="col-sm-5">
-                @Html.DisplayNameFor(model => model.MoneyId)
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.Money.Name)
-            </dd>
+            
 
 
 
@@ -274,7 +241,107 @@
     </div>
 </div>
 
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
-        <a asp-action="Index">Regresar</a>
-    </div>
+
+
+
+
+<div>
+    <h4>Detalles de la Operacion</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MonthYear)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MonthYear)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OutDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OutDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LoadDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LoadDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OdometerBegin)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OdometerBegin)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OdometerEnd)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OdometerEnd)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UnitPay)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UnitPay)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Fuel)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Fuel)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Capacity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Capacity)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Carreta)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Carreta.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Carrier)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Carrier.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Client)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Client.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Clientrate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Clientrate.ContractExpiration)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Driver)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Driver.Dni)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Tracto)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Tracto.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a asp-action="Index">Regresar</a>
+</div>

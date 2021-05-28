@@ -21,7 +21,7 @@ namespace IronHorseCore.Controllers
         // GET: Operations
         public async Task<IActionResult> Index()
         {
-            var eFContext = _context.Operations.Include(o => o.Carreta).Include(o => o.Carrier).Include(o => o.Client).Include(o => o.Destiny).Include(o => o.Driver).Include(o => o.Money).Include(o => o.Source).Include(o => o.Tracto).Include(o => o.TypeLoad).Include(o => o.TypeProduct).Include(o => o.Unit);
+            var eFContext = _context.Operations.Include(o => o.Carreta).Include(o => o.Carrier).Include(o => o.Client).Include(o => o.Clientrate).Include(o => o.Driver).Include(o => o.Tracto);
             return View(await eFContext.ToListAsync());
         }
 
@@ -37,24 +37,21 @@ namespace IronHorseCore.Controllers
                 .Include(o => o.Carreta)
                 .Include(o => o.Carrier)
                 .Include(o => o.Client)
-                .Include(o => o.Destiny)
+                .Include(o => o.Clientrate)
                 .Include(o => o.Driver)
-                .Include(o => o.Money)
-                .Include(o => o.Source)
                 .Include(o => o.Tracto)
-                .Include(o => o.TypeLoad)
-                .Include(o => o.TypeProduct)
-                .Include(o => o.Unit)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (operation == null)
             {
                 return NotFound();
             }
 
+
             ViewBag.DiverExpenses = await _context.Driverexpenses
                .Include(d => d.Driver)
                .Include(d => d.TypeExpense)
                .Where(m => m.OperationId == operation.Id).ToListAsync();
+
 
             return View(operation);
         }
@@ -62,17 +59,12 @@ namespace IronHorseCore.Controllers
         // GET: Operations/Create
         public IActionResult Create()
         {
-            ViewData["CarretaId"] = new SelectList(_context.Trucks, "Id", "Placa");
+            ViewData["CarretaId"] = new SelectList(_context.Trucks, "Id", "Id");
             ViewData["CarrierId"] = new SelectList(_context.Carriers, "Id", "Name");
             ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Name");
-            ViewData["DestinyId"] = new SelectList(_context.Places, "Id", "Name");
-            ViewData["DriverId"] = new SelectList(_context.Drivers, "Id", "Name");
-            ViewData["MoneyId"] = new SelectList(_context.Money, "Id", "Name");
-            ViewData["SourceId"] = new SelectList(_context.Places, "Id", "Name");
-            ViewData["TractoId"] = new SelectList(_context.Trucks, "Id", "Placa");
-            ViewData["TypeLoadId"] = new SelectList(_context.Typeloads, "Id", "Name");
-            ViewData["TypeProductId"] = new SelectList(_context.Typeproducts, "Id", "Name");
-            ViewData["UnitId"] = new SelectList(_context.Units, "Id", "Name");
+            ViewData["ClientrateId"] = new SelectList(_context.Clientrates, "Id", "Description");
+            ViewData["DriverId"] = new SelectList(_context.Drivers, "Id", "Dni");
+            ViewData["TractoId"] = new SelectList(_context.Trucks, "Id", "Id");
             return View();
         }
 
@@ -81,7 +73,7 @@ namespace IronHorseCore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Mes,DriverId,TypeLoadId,ClientId,TypeProductId,OutDate,EndDate,SourceId,DestinyId,TractoId,CarretaId,UnitId,MoneyId,LoadDate,CarrierId,OdometerBegin,OdometerEnd,UnitPay")] Operation operation)
+        public async Task<IActionResult> Create([Bind("Id,MonthYear,DriverId,ClientId,ClientrateId,OutDate,EndDate,TractoId,CarretaId,LoadDate,CarrierId,OdometerBegin,OdometerEnd,UnitPay,Fuel,Capacity")] Operation operation)
         {
             if (ModelState.IsValid)
             {
@@ -92,14 +84,9 @@ namespace IronHorseCore.Controllers
             ViewData["CarretaId"] = new SelectList(_context.Trucks, "Id", "Placa", operation.CarretaId);
             ViewData["CarrierId"] = new SelectList(_context.Carriers, "Id", "Name", operation.CarrierId);
             ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Name", operation.ClientId);
-            ViewData["DestinyId"] = new SelectList(_context.Places, "Id", "Name", operation.DestinyId);
-            ViewData["DriverId"] = new SelectList(_context.Drivers, "Id", "Name", operation.DriverId);
-            ViewData["MoneyId"] = new SelectList(_context.Money, "Id", "Name", operation.MoneyId);
-            ViewData["SourceId"] = new SelectList(_context.Places, "Id", "Name", operation.SourceId);
+            ViewData["ClientrateId"] = new SelectList(_context.Clientrates, "Id", "Description", operation.ClientrateId);
+            ViewData["DriverId"] = new SelectList(_context.Drivers, "Id", "Dni", operation.DriverId);
             ViewData["TractoId"] = new SelectList(_context.Trucks, "Id", "Placa", operation.TractoId);
-            ViewData["TypeLoadId"] = new SelectList(_context.Typeloads, "Id", "Name", operation.TypeLoadId);
-            ViewData["TypeProductId"] = new SelectList(_context.Typeproducts, "Id", "Name", operation.TypeProductId);
-            ViewData["UnitId"] = new SelectList(_context.Units, "Id", "Name", operation.UnitId);
             return View(operation);
         }
 
@@ -118,15 +105,10 @@ namespace IronHorseCore.Controllers
             }
             ViewData["CarretaId"] = new SelectList(_context.Trucks, "Id", "Id", operation.CarretaId);
             ViewData["CarrierId"] = new SelectList(_context.Carriers, "Id", "Name", operation.CarrierId);
-            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Address", operation.ClientId);
-            ViewData["DestinyId"] = new SelectList(_context.Places, "Id", "Name", operation.DestinyId);
+            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Name", operation.ClientId);
+            ViewData["ClientrateId"] = new SelectList(_context.Clientrates, "Id", "ContractExpiration", operation.ClientrateId);
             ViewData["DriverId"] = new SelectList(_context.Drivers, "Id", "Dni", operation.DriverId);
-            ViewData["MoneyId"] = new SelectList(_context.Money, "Id", "Name", operation.MoneyId);
-            ViewData["SourceId"] = new SelectList(_context.Places, "Id", "Name", operation.SourceId);
             ViewData["TractoId"] = new SelectList(_context.Trucks, "Id", "Id", operation.TractoId);
-            ViewData["TypeLoadId"] = new SelectList(_context.Typeloads, "Id", "Name", operation.TypeLoadId);
-            ViewData["TypeProductId"] = new SelectList(_context.Typeproducts, "Id", "Name", operation.TypeProductId);
-            ViewData["UnitId"] = new SelectList(_context.Units, "Id", "Name", operation.UnitId);
             return View(operation);
         }
 
@@ -135,7 +117,7 @@ namespace IronHorseCore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Mes,DriverId,TypeLoadId,ClientId,TypeProductId,OutDate,EndDate,SourceId,DestinyId,TractoId,CarretaId,UnitId,MoneyId,LoadDate,CarrierId,OdometerBegin,OdometerEnd,UnitPay")] Operation operation)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,MonthYear,DriverId,ClientId,ClientrateId,OutDate,EndDate,TractoId,CarretaId,LoadDate,CarrierId,OdometerBegin,OdometerEnd,UnitPay,Fuel,Capacity")] Operation operation)
         {
             if (id != operation.Id)
             {
@@ -162,17 +144,12 @@ namespace IronHorseCore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CarretaId"] = new SelectList(_context.Trucks, "Id", "Id", operation.CarretaId);
+            ViewData["CarretaId"] = new SelectList(_context.Trucks, "Id", "Placa", operation.CarretaId);
             ViewData["CarrierId"] = new SelectList(_context.Carriers, "Id", "Name", operation.CarrierId);
-            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Address", operation.ClientId);
-            ViewData["DestinyId"] = new SelectList(_context.Places, "Id", "Name", operation.DestinyId);
-            ViewData["DriverId"] = new SelectList(_context.Drivers, "Id", "Dni", operation.DriverId);
-            ViewData["MoneyId"] = new SelectList(_context.Money, "Id", "Name", operation.MoneyId);
-            ViewData["SourceId"] = new SelectList(_context.Places, "Id", "Name", operation.SourceId);
-            ViewData["TractoId"] = new SelectList(_context.Trucks, "Id", "Id", operation.TractoId);
-            ViewData["TypeLoadId"] = new SelectList(_context.Typeloads, "Id", "Name", operation.TypeLoadId);
-            ViewData["TypeProductId"] = new SelectList(_context.Typeproducts, "Id", "Name", operation.TypeProductId);
-            ViewData["UnitId"] = new SelectList(_context.Units, "Id", "Name", operation.UnitId);
+            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Name", operation.ClientId);
+            ViewData["ClientrateId"] = new SelectList(_context.Clientrates, "Id", "Description", operation.ClientrateId);
+            ViewData["DriverId"] = new SelectList(_context.Drivers, "Id", "Name", operation.DriverId);
+            ViewData["TractoId"] = new SelectList(_context.Trucks, "Id", "Placa", operation.TractoId);
             return View(operation);
         }
 
@@ -188,14 +165,9 @@ namespace IronHorseCore.Controllers
                 .Include(o => o.Carreta)
                 .Include(o => o.Carrier)
                 .Include(o => o.Client)
-                .Include(o => o.Destiny)
+                .Include(o => o.Clientrate)
                 .Include(o => o.Driver)
-                .Include(o => o.Money)
-                .Include(o => o.Source)
                 .Include(o => o.Tracto)
-                .Include(o => o.TypeLoad)
-                .Include(o => o.TypeProduct)
-                .Include(o => o.Unit)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (operation == null)
             {

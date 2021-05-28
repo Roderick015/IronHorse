@@ -52,13 +52,6 @@ namespace IronHorseCore.Models
         public float? UnitPay { get; set; }
         [Display(Name = "Moneda")]
         public int MoneyId { get; set; }
-
-
-
-
-
-
-
         [Display(Name = "Odometro inicio")]
         public int OdometerBegin { get; set; }
         [Display(Name = "Odometro final")]

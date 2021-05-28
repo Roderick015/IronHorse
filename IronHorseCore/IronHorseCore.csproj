@@ -6,14 +6,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Operations1\**" />
     <Compile Remove="Views\Operations\**" />
+    <Content Remove="Views\Operations1\**" />
     <Content Remove="Views\Operations\**" />
+    <EmbeddedResource Remove="Views\Operations1\**" />
     <EmbeddedResource Remove="Views\Operations\**" />
+    <None Remove="Views\Operations1\**" />
     <None Remove="Views\Operations\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\OperationsController.cs" />
+    <Compile Remove="Controllers\Operations1Controller.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +26,16 @@
     <None Include="Views\Clientrates\Details.cshtml" />
     <None Include="Views\Clientrates\Edit.cshtml" />
     <None Include="Views\Clientrates\Index.cshtml" />
+    <None Include="Views\DriverExpenses\Create.cshtml" />
+    <None Include="Views\DriverExpenses\Delete.cshtml" />
+    <None Include="Views\DriverExpenses\Details.cshtml" />
+    <None Include="Views\DriverExpenses\Edit.cshtml" />
+    <None Include="Views\DriverExpenses\Index.cshtml" />
+    <None Include="Views\Operations\Create.cshtml" />
+    <None Include="Views\Operations\Delete.cshtml" />
+    <None Include="Views\Operations\Details.cshtml" />
+    <None Include="Views\Operations\Edit.cshtml" />
+    <None Include="Views\Operations\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

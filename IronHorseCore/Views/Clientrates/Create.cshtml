@@ -7,9 +7,10 @@
 <h4>Agregar Tarifa</h4>
 <hr />
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-group">
                 <label asp-for="ClientId" class="control-label"></label>
                 <select asp-for="ClientId" class="form-control" asp-items="ViewBag.ClientId"></select>
@@ -100,4 +101,43 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <link href="~/lib/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/lib/select2/css/select2-bootstrap4.css" rel="stylesheet" />
+    <script src="~/lib/select2/js/select2.js"></script>
+    <script src="~/lib/select2/js/i18n/es.js"></script>
+
+    <script>
+        $('#ClientId').select2({
+            theme: 'bootstrap4',
+        });
+
+        $('#TypeServiceId').select2({
+            theme: 'bootstrap4',
+        });
+
+        $('#TypeLoadId').select2({
+            theme: 'bootstrap4',
+        });
+
+        $('#TypeProductId').select2({
+            theme: 'bootstrap4',
+        });
+
+        $('#SourceId').select2({
+            theme: 'bootstrap4',
+        });
+
+        $('#DestinyId').select2({
+            theme: 'bootstrap4',
+        });
+
+        $('#UnitId').select2({
+            theme: 'bootstrap4',
+        });
+
+        $('#MoneyId').select2({
+            theme: 'bootstrap4',
+        });
+    </script>
 }

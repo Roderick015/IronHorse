@@ -1,0 +1,83 @@
+﻿@model IEnumerable<IronHorseCore.Models.Bill>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="page-title-box">
+    <div class="page-title-right">
+        <a asp-action="Create" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Agregar Factura</a>
+    </div>
+    <h4 class="page-title">Facturas</h4>
+</div>
+
+<table id="tblList" class="table table-sm table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SerialNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Datepay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Operation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SerialNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Datepay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Operation.Id)
+                </td>
+                <td nowrap>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="text-primary"><i class="fas fa-edit"></i> Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" class="text-info"><i class="fas fa-bookmark"></i> Detalle</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger"><i class="fas fa-trash"></i> Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+
+    <link href="~/lib/datatables/datatables.css" rel="stylesheet" />
+    <script src="~/lib/datatables/datatables.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#tblList').DataTable({
+                "language": { url: "/lib/datatables/spanish.json" }
+            });
+        })
+    </script>
+
+}

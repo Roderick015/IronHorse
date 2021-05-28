@@ -18,6 +18,28 @@ DROP DATABASE IF EXISTS `ironhorse`;
 CREATE DATABASE IF NOT EXISTS `ironhorse` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `ironhorse`;
 
+-- Volcando estructura para tabla ironhorse.bill
+DROP TABLE IF EXISTS `bill`;
+CREATE TABLE IF NOT EXISTS `bill` (
+  `Id` int NOT NULL AUTO_INCREMENT,
+  `OperationId` int NOT NULL,
+  `Created` datetime DEFAULT NULL COMMENT 'Fecha de la factura',
+  `Total` decimal(10,2) DEFAULT NULL COMMENT 'Total de la factura',
+  `SerialNumber` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'Serie - numero de factura',
+  `Status` int DEFAULT NULL COMMENT 'Estado de la factura(Factura generada = 1, Factura pagada = 2, Factura anulada = 3)',
+  `Datepay` datetime DEFAULT NULL COMMENT 'Fecha de pago',
+  PRIMARY KEY (`Id`),
+  KEY `FK_bill_operation` (`OperationId`),
+  CONSTRAINT `FK_bill_operation` FOREIGN KEY (`OperationId`) REFERENCES `operations` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Volcando datos para la tabla ironhorse.bill: ~0 rows (aproximadamente)
+DELETE FROM `bill`;
+/*!40000 ALTER TABLE `bill` DISABLE KEYS */;
+INSERT INTO `bill` (`Id`, `OperationId`, `Created`, `Total`, `SerialNumber`, `Status`, `Datepay`) VALUES
+	(1, 1, '2021-05-28 15:44:58', 25.00, '4646521', 1, '2021-05-28 15:45:26');
+/*!40000 ALTER TABLE `bill` ENABLE KEYS */;
+
 -- Volcando estructura para tabla ironhorse.carrier
 DROP TABLE IF EXISTS `carrier`;
 CREATE TABLE IF NOT EXISTS `carrier` (
@@ -229,19 +251,19 @@ DELETE FROM `operationexpenses`;
 DROP TABLE IF EXISTS `operations`;
 CREATE TABLE IF NOT EXISTS `operations` (
   `Id` int NOT NULL AUTO_INCREMENT,
-  `MesAnio` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `MonthYear` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `DriverId` int NOT NULL DEFAULT '0',
   `ClientId` int NOT NULL DEFAULT '0',
-  `ClientrateId` int DEFAULT NULL,
-  `OutDate` date DEFAULT NULL,
+  `ClientrateId` int NOT NULL,
+  `OutDate` datetime DEFAULT NULL,
   `EndDate` datetime DEFAULT NULL,
   `TractoId` int NOT NULL DEFAULT '0',
   `CarretaId` int NOT NULL DEFAULT '0',
   `LoadDate` datetime DEFAULT NULL,
   `CarrierId` int NOT NULL,
-  `OdometerBegin` int NOT NULL,
-  `OdometerEnd` int NOT NULL,
-  `UnitPay` float NOT NULL,
+  `OdometerBegin` int DEFAULT NULL,
+  `OdometerEnd` int DEFAULT NULL,
+  `UnitPay` float DEFAULT NULL,
   `Fuel` float DEFAULT NULL,
   `Capacity` float DEFAULT NULL,
   PRIMARY KEY (`Id`),
@@ -262,8 +284,8 @@ CREATE TABLE IF NOT EXISTS `operations` (
 -- Volcando datos para la tabla ironhorse.operations: ~0 rows (aproximadamente)
 DELETE FROM `operations`;
 /*!40000 ALTER TABLE `operations` DISABLE KEYS */;
-INSERT INTO `operations` (`Id`, `MesAnio`, `DriverId`, `ClientId`, `ClientrateId`, `OutDate`, `EndDate`, `TractoId`, `CarretaId`, `LoadDate`, `CarrierId`, `OdometerBegin`, `OdometerEnd`, `UnitPay`, `Fuel`, `Capacity`) VALUES
-	(1, '2021-05-21', 2, 1, 2, '2021-05-23', '2021-05-26 00:00:00', 1, 1, '2021-05-23 00:00:00', 1, 0, 0, 3, NULL, NULL);
+INSERT INTO `operations` (`Id`, `MonthYear`, `DriverId`, `ClientId`, `ClientrateId`, `OutDate`, `EndDate`, `TractoId`, `CarretaId`, `LoadDate`, `CarrierId`, `OdometerBegin`, `OdometerEnd`, `UnitPay`, `Fuel`, `Capacity`) VALUES
+	(1, '05/2021', 2, 1, 2, '2021-05-23 00:00:00', '2021-05-26 00:00:00', 1, 1, '2021-05-23 00:00:00', 1, 0, 0, 3, NULL, NULL);
 /*!40000 ALTER TABLE `operations` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.place
@@ -293,6 +315,25 @@ INSERT INTO `place` (`Id`, `Name`, `Enabled`) VALUES
 	(12, 'Shouxin - Marcona', 1),
 	(13, 'Almacenes - Callao', 1);
 /*!40000 ALTER TABLE `place` ENABLE KEYS */;
+
+-- Volcando estructura para tabla ironhorse.toll
+DROP TABLE IF EXISTS `toll`;
+CREATE TABLE IF NOT EXISTS `toll` (
+  `Id` int NOT NULL AUTO_INCREMENT,
+  `OperationsId` int NOT NULL,
+  `DatePay` datetime NOT NULL COMMENT 'Fecha',
+  `Pay` decimal(6,2) NOT NULL COMMENT 'Pago',
+  PRIMARY KEY (`Id`),
+  KEY `FK_toll_operations` (`OperationsId`),
+  CONSTRAINT `FK_toll_operations` FOREIGN KEY (`OperationsId`) REFERENCES `operations` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Volcando datos para la tabla ironhorse.toll: ~0 rows (aproximadamente)
+DELETE FROM `toll`;
+/*!40000 ALTER TABLE `toll` DISABLE KEYS */;
+INSERT INTO `toll` (`Id`, `OperationsId`, `DatePay`, `Pay`) VALUES
+	(1, 1, '2021-05-28 15:17:39', 15.00);
+/*!40000 ALTER TABLE `toll` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.truck
 DROP TABLE IF EXISTS `truck`;

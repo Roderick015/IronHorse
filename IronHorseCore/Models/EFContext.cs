@@ -17,6 +17,7 @@ namespace IronHorseCore.Models
         {
         }
 
+        public virtual DbSet<Bill> Bills { get; set; }
         public virtual DbSet<Carrier> Carriers { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Clientrate> Clientrates { get; set; }
@@ -27,6 +28,7 @@ namespace IronHorseCore.Models
         public virtual DbSet<Operation> Operations { get; set; }
         public virtual DbSet<Operationexpense> Operationexpenses { get; set; }
         public virtual DbSet<Place> Places { get; set; }
+        public virtual DbSet<Toll> Tolls { get; set; }
         public virtual DbSet<Truck> Trucks { get; set; }
         public virtual DbSet<Typeexpense> Typeexpenses { get; set; }
         public virtual DbSet<Typeload> Typeloads { get; set; }
@@ -48,6 +50,37 @@ namespace IronHorseCore.Models
         {
             modelBuilder.HasCharSet("utf8mb4")
                 .UseCollation("utf8mb4_0900_ai_ci");
+
+            modelBuilder.Entity<Bill>(entity =>
+            {
+                entity.ToTable("bill");
+
+                entity.HasIndex(e => e.OperationId, "FK_bill_operation");
+
+                entity.Property(e => e.Created)
+                    .HasColumnType("datetime")
+                    .HasComment("Fecha de la factura");
+
+                entity.Property(e => e.Datepay)
+                    .HasColumnType("datetime")
+                    .HasComment("Fecha de pago");
+
+                entity.Property(e => e.SerialNumber)
+                    .HasMaxLength(12)
+                    .HasComment("Serie - numero de factura");
+
+                entity.Property(e => e.Status).HasComment("Estado de la factura(Factura generada, Factura pagada, Factura anulada)");
+
+                entity.Property(e => e.Total)
+                    .HasPrecision(10, 2)
+                    .HasComment("Total de la factura");
+
+                entity.HasOne(d => d.Operation)
+                    .WithMany(p => p.Bills)
+                    .HasForeignKey(d => d.OperationId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_bill_operation");
+            });
 
             modelBuilder.Entity<Carrier>(entity =>
             {
@@ -368,6 +401,8 @@ namespace IronHorseCore.Models
 
                 entity.HasIndex(e => e.ClientId, "FK_operations_client");
 
+                entity.HasIndex(e => e.ClientrateId, "FK_operations_clientrate");
+
                 entity.HasIndex(e => e.DriverId, "FK_operations_driver");
 
                 entity.HasIndex(e => e.CarretaId, "FK_operations_truck_carreta");
@@ -378,11 +413,9 @@ namespace IronHorseCore.Models
 
                 entity.Property(e => e.LoadDate).HasColumnType("datetime");
 
-                entity.Property(e => e.MesAnio)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.MonthYear).HasMaxLength(50);
 
-                entity.Property(e => e.OutDate).HasColumnType("date");
+                entity.Property(e => e.OutDate).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Carreta)
                     .WithMany(p => p.OperationCarreta)
@@ -401,6 +434,12 @@ namespace IronHorseCore.Models
                     .HasForeignKey(d => d.ClientId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_operations_client");
+
+                entity.HasOne(d => d.Clientrate)
+                    .WithMany(p => p.Operations)
+                    .HasForeignKey(d => d.ClientrateId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_operations_clientrate");
 
                 entity.HasOne(d => d.Driver)
                     .WithMany(p => p.Operations)
@@ -438,6 +477,27 @@ namespace IronHorseCore.Models
                     .IsRequired()
                     .HasMaxLength(500)
                     .HasDefaultValueSql("'0'");
+            });
+
+            modelBuilder.Entity<Toll>(entity =>
+            {
+                entity.ToTable("toll");
+
+                entity.HasIndex(e => e.OperationsId, "FK_toll_operations");
+
+                entity.Property(e => e.DatePay)
+                    .HasColumnType("datetime")
+                    .HasComment("Fecha");
+
+                entity.Property(e => e.Pay)
+                    .HasPrecision(6, 2)
+                    .HasComment("Pago");
+
+                entity.HasOne(d => d.Operations)
+                    .WithMany(p => p.Tolls)
+                    .HasForeignKey(d => d.OperationsId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_toll_operations");
             });
 
             modelBuilder.Entity<Truck>(entity =>

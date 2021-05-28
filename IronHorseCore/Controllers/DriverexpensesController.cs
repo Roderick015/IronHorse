@@ -50,7 +50,7 @@ namespace IronHorseCore.Controllers
         public IActionResult Create(int operationid, int driverid)
         {
             ViewData["DriverId"] = new SelectList(_context.Drivers, "Id", "Dni", driverid);
-            ViewData["OperationId"] = new SelectList(_context.Operations, "Id", "Mes", operationid);
+            ViewData["OperationId"] = new SelectList(_context.Operations, "Id", "Id", operationid);
             ViewData["TypeExpenseId"] = new SelectList(_context.Typeexpenses, "Id", "Name");
             return View();
         }

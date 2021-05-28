@@ -1,0 +1,249 @@
+﻿@model IronHorseCore.Models.Operation
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4>Agregar Operación</h4>
+<hr />
+
+
+<form asp-action="Create">
+    <div class="form-row">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="Mes" class="control-label"></label>
+                <input asp-for="Mes" class="form-control form-control-sm" />
+                <span asp-validation-for="Mes" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="ClientId" class="control-label"></label>
+                <select asp-for="ClientId" class="form-control form-control-sm" asp-items="ViewBag.ClientId"></select>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label class="control-label">Tarifa</label>
+                <select class="form-control form-control-sm">
+                    <option>
+                        Tipo de servicio,
+                        Tipo de Carga,
+                        Tipo de Producto,
+                        Descripcion de servicio,
+                        Origen,
+                        Destino,
+                        Unidad
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="form-group">
+                <label class="control-label">Capacidad de Carga</label>
+                <input  class="form-control form-control-sm" />
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="CarrierId" class="control-label"></label>
+                <select  class="form-control form-control-sm" ></select>
+            </div>
+        </div>
+        @*<div class="col-4">
+            <div class="form-group">
+                <label asp-for="TypeLoadId" class="control-label"></label>
+                <select asp-for="TypeLoadId" class="form-control form-control-sm" asp-items="ViewBag.TypeLoadId"></select>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="TypeProductId" class="control-label"></label>
+                <select asp-for="TypeProductId" class="form-control form-control-sm" asp-items="ViewBag.TypeProductId"></select>
+            </div>
+        </div>*@
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="LoadDate" class="control-label datepicker"></label>
+                <input asp-for="LoadDate" class="form-control form-control-sm" />
+                <span asp-validation-for="LoadDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="OutDate" class="control-label datepicker"></label>
+                <input asp-for="OutDate" class="form-control form-control-sm" />
+                <span asp-validation-for="OutDate" class="text-danger"></span>
+            </div>
+        </div>
+        @*<div class="col-4">
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label datepicker"></label>
+                <input asp-for="EndDate" class="form-control form-control-sm" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="SourceId" class="control-label"></label>
+                <select asp-for="SourceId" class="form-control form-control-sm" asp-items="ViewBag.SourceId"></select>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="DestinyId" class="control-label"></label>
+                <select asp-for="DestinyId" class="form-control form-control-sm" asp-items="ViewBag.DestinyId"></select>
+            </div>
+        </div>*@
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="DriverId" class="control-label"></label>
+                <select asp-for="DriverId" class="form-control form-control-sm" asp-items="ViewBag.DriverId"></select>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="TractoId" class="control-label"></label>
+                <select asp-for="TractoId" class="form-control form-control-sm" asp-items="ViewBag.TractoId"></select>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="CarretaId" class="control-label"></label>
+                <select asp-for="CarretaId" class="form-control form-control-sm" asp-items="ViewBag.CarretaId"></select>
+            </div>
+        </div>
+        @*<div class="col-4">
+            <div class="form-group">
+                <label asp-for="UnitId" class="control-label"></label>
+                <select asp-for="UnitId" class="form-control form-control-sm" asp-items="ViewBag.UnitId"></select>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="UnitPay" class="control-label"></label>
+                <input asp-for="UnitPay" class="form-control form-control-sm" />
+                <span asp-validation-for="UnitPay" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="MoneyId" class="control-label"></label>
+                <select asp-for="MoneyId" class="form-control form-control-sm" asp-items="ViewBag.MoneyId"></select>
+            </div>
+        </div>*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        @*<div class="form-group">
+            <label asp-for="OdometerBegin" class="control-label"></label>
+            <input asp-for="OdometerBegin" class="form-control form-control-sm" />
+            <span asp-validation-for="OdometerBegin" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="OdometerEnd" class="control-label"></label>
+            <input asp-for="OdometerEnd" class="form-control form-control-sm" />
+            <span asp-validation-for="OdometerEnd" class="text-danger"></span>
+        </div>*@
+
+        <div class="form-group">
+            <input type="submit" value="Grabar" class="btn btn-sm btn-primary" />
+        </div>
+    </div>
+</form>
+
+
+
+<div>
+    <a asp-action="Index">Regresar</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/lib/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>
+
+    <link href="~/lib/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/lib/select2/css/select2-bootstrap4.css" rel="stylesheet" />
+    <script src="~/lib/select2/js/select2.js"></script>
+    <script src="~/lib/select2/js/i18n/es.js"></script>
+
+    <script>
+        $('#LoadDate').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#OutDate').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#EndDate').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+
+        $('#ClientId').select2({
+            theme: 'bootstrap4',
+        });
+
+        $('#CarrierId').select2({
+            theme: 'bootstrap4',
+        });
+
+        $('#TypeLoadId').select2({
+            theme: 'bootstrap4',
+        });
+
+        $('#TypeProductId').select2({
+            theme: 'bootstrap4',
+        });
+
+        $('#SourceId').select2({
+            theme: 'bootstrap4',
+        });
+
+        $('#DestinyId').select2({
+            theme: 'bootstrap4',
+        });
+
+        $('#DriverId').select2({
+            theme: 'bootstrap4',
+        });
+
+        $('#TractoId').select2({
+            theme: 'bootstrap4',
+        });
+
+        $('#CarretaId').select2({
+            theme: 'bootstrap4',
+        });
+
+        $('#UnitId').select2({
+            theme: 'bootstrap4',
+        });
+
+    </script>
+
+}

@@ -1,0 +1,119 @@
+﻿@model IronHorseCore.Models.Operation
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Operation</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Mes" class="control-label"></label>
+                <input asp-for="Mes" class="form-control" />
+                <span asp-validation-for="Mes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverId" class="control-label"></label>
+                <select asp-for="DriverId" class="form-control" asp-items="ViewBag.DriverId"></select>
+                <span asp-validation-for="DriverId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeLoadId" class="control-label"></label>
+                <select asp-for="TypeLoadId" class="form-control" asp-items="ViewBag.TypeLoadId"></select>
+                <span asp-validation-for="TypeLoadId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClientId" class="control-label"></label>
+                <select asp-for="ClientId" class="form-control" asp-items="ViewBag.ClientId"></select>
+                <span asp-validation-for="ClientId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeProductId" class="control-label"></label>
+                <select asp-for="TypeProductId" class="form-control" asp-items="ViewBag.TypeProductId"></select>
+                <span asp-validation-for="TypeProductId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OutDate" class="control-label"></label>
+                <input asp-for="OutDate" class="form-control" />
+                <span asp-validation-for="OutDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SourceId" class="control-label"></label>
+                <select asp-for="SourceId" class="form-control" asp-items="ViewBag.SourceId"></select>
+                <span asp-validation-for="SourceId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DestinyId" class="control-label"></label>
+                <select asp-for="DestinyId" class="form-control" asp-items="ViewBag.DestinyId"></select>
+                <span asp-validation-for="DestinyId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TractoId" class="control-label"></label>
+                <select asp-for="TractoId" class="form-control" asp-items="ViewBag.TractoId"></select>
+                <span asp-validation-for="TractoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarretaId" class="control-label"></label>
+                <select asp-for="CarretaId" class="form-control" asp-items="ViewBag.CarretaId"></select>
+                <span asp-validation-for="CarretaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitId" class="control-label"></label>
+                <select asp-for="UnitId" class="form-control" asp-items="ViewBag.UnitId"></select>
+                <span asp-validation-for="UnitId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MoneyId" class="control-label"></label>
+                <select asp-for="MoneyId" class="form-control" asp-items="ViewBag.MoneyId"></select>
+                <span asp-validation-for="MoneyId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LoadDate" class="control-label"></label>
+                <input asp-for="LoadDate" class="form-control" />
+                <span asp-validation-for="LoadDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarrierId" class="control-label"></label>
+                <select asp-for="CarrierId" class="form-control" asp-items="ViewBag.CarrierId"></select>
+                <span asp-validation-for="CarrierId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OdometerBegin" class="control-label"></label>
+                <input asp-for="OdometerBegin" class="form-control" />
+                <span asp-validation-for="OdometerBegin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OdometerEnd" class="control-label"></label>
+                <input asp-for="OdometerEnd" class="form-control" />
+                <span asp-validation-for="OdometerEnd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitPay" class="control-label"></label>
+                <input asp-for="UnitPay" class="form-control" />
+                <span asp-validation-for="UnitPay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

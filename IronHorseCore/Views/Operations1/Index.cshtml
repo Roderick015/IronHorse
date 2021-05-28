@@ -1,0 +1,164 @@
+﻿@model IEnumerable<IronHorseCore.Models.Operation>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="page-title-box">
+    <div class="page-title-right">
+        <a asp-action="Create" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Agregar Operación</a>
+    </div>
+    <h4 class="page-title">Operación</h4>
+</div>
+
+<table id="tblList" class="table table-sm table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Mes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarrierId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeLoadId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoadDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OutDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+
+
+
+
+
+
+
+
+            @*<th>
+                @Html.DisplayNameFor(model => model.OdometerBegin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OdometerEnd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Carreta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Destiny)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Driver)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Money)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Source)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tracto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Unit)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Carrier.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeLoad.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeProduct.Name)
+            </td>
+            <td>
+                @Convert.ToDateTime(item.LoadDate).ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Convert.ToDateTime(item.OutDate).ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Convert.ToDateTime(item.EndDate).ToString("dd/MM/yyyy")
+            </td>
+
+            @*<td>
+            @Html.DisplayFor(modelItem => item.OdometerBegin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OdometerEnd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnitPay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Carreta.Id)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Destiny.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Driver.Dni)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Money.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Source.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tracto.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Unit.Name)
+        </td>*@
+            <td nowrap>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="text-primary"><i class="fas fa-edit"></i> Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="text-info"><i class="fas fa-bookmark"></i> Detalle</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger"><i class="fas fa-trash"></i> Eliminar</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+
+    <link href="~/lib/datatables/datatables.css" rel="stylesheet" />
+    <script src="~/lib/datatables/datatables.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#tblList').DataTable({
+                "language": { url: "/lib/datatables/spanish.json" }
+            });
+        })
+    </script>
+
+}
