@@ -9073,23 +9073,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\gusta\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\roder\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\AgileCorp\\Proyectos\\IronHorse\\IronHorseCore\\IronHorseCore.csproj",
+      "projectUniqueName": "C:\\Users\\roder\\Documents\\GitHub\\IronHorse\\IronHorseCore\\IronHorseCore.csproj",
       "projectName": "IronHorseCore",
-      "projectPath": "D:\\AgileCorp\\Proyectos\\IronHorse\\IronHorseCore\\IronHorseCore.csproj",
-      "packagesPath": "C:\\Users\\gusta\\.nuget\\packages\\",
-      "outputPath": "D:\\AgileCorp\\Proyectos\\IronHorse\\IronHorseCore\\obj\\",
+      "projectPath": "C:\\Users\\roder\\Documents\\GitHub\\IronHorse\\IronHorseCore\\IronHorseCore.csproj",
+      "packagesPath": "C:\\Users\\roder\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\roder\\Documents\\GitHub\\IronHorse\\IronHorseCore\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\gusta\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\roder\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

@@ -6,6 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Operations\**" />
+    <Content Remove="Views\Operations\**" />
+    <EmbeddedResource Remove="Views\Operations\**" />
+    <None Remove="Views\Operations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\OperationsController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Views\Clientrates\Create.cshtml" />
     <None Include="Views\Clientrates\Delete.cshtml" />
     <None Include="Views\Clientrates\Details.cshtml" />
