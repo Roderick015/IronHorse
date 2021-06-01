@@ -10,6 +10,7 @@ using IronHorseCore.Helper;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 
+
 namespace IronHorseCore.Controllers
 {
     public class ClientratesController : Controller
@@ -25,12 +26,14 @@ namespace IronHorseCore.Controllers
         public async Task<IActionResult> Index()
         {
             var eFContext = _context.Clientrates.Include(c => c.Client).Include(c => c.Destiny).Include(c => c.Money).Include(c => c.Source).Include(c => c.TypeLoad).Include(c => c.TypeProduct).Include(c => c.TypeService).Include(c => c.Unit);
-            return View(await eFContext.Where(m => m.IsRemoved == false).ToListAsync());
+            return View(await eFContext.ToListAsync());
         }
 
         // GET: Clientrates/Details/5
         public async Task<IActionResult> Details(String uniqueid)
         {
+
+
             var clientrate = await _context.Clientrates
                 .Include(c => c.Client)
                 .Include(c => c.Destiny)
@@ -72,6 +75,9 @@ namespace IronHorseCore.Controllers
         {
             try
             {
+                //System.IFormatProvider cultureUS = new System.Globalization.CultureInfo("en-US");
+                //clientrate.PriceWithoutVat = decimal.Parse(strPriceWithoutVat, cultureUS);
+
                 clientrate.UniqueId = Guid.NewGuid().ToString();
                 MetaAuth auth = new MetaAuth();
                 auth.CreatedUserID = (int)HttpContext.Session.GetInt32("UserId");
@@ -121,10 +127,13 @@ namespace IronHorseCore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UniqueId,ClientId,TypeServiceId,TypeLoadId,TypeProductId,Description,SourceId,DestinyId,UnitId,MoneyId,PriceWithoutVat,ContractNumber,ContractExpiration,Enabled")] Clientrate clientrate)
+        public async Task<IActionResult> Edit(int id, [Bind("UniqueId,ClientId,TypeServiceId,TypeLoadId,TypeProductId,Description,SourceId,DestinyId,UnitId,MoneyId,PriceWithoutVat,ContractNumber,ContractExpiration,Enabled")] Clientrate clientrate/*, String strPriceWithoutVat*/)
         {
             try
             {
+                //System.IFormatProvider cultureUS = new System.Globalization.CultureInfo("en-US");
+                //clientrate.PriceWithoutVat = decimal.Parse(strPriceWithoutVat, cultureUS);
+
                 var clientrateEdit = await _context.Clientrates.FirstOrDefaultAsync(m => m.UniqueId == clientrate.UniqueId);
                 clientrateEdit.ClientId = clientrate.ClientId;
                 clientrateEdit.TypeServiceId = clientrate.TypeServiceId;
@@ -170,6 +179,8 @@ namespace IronHorseCore.Controllers
         // GET: Clientrates/Delete/5
         public async Task<IActionResult> Delete(String uniqueid)
         {
+
+
             var clientrate = await _context.Clientrates
                 .Include(c => c.Client)
                 .Include(c => c.Destiny)
@@ -180,7 +191,8 @@ namespace IronHorseCore.Controllers
                 .Include(c => c.TypeService)
                 .Include(c => c.Unit)
                 .FirstOrDefaultAsync(m => m.UniqueId == uniqueid);
-            
+
+
             return View(clientrate);
         }
 

@@ -99,11 +99,24 @@ namespace IronHorseCore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Id,Name,BirthDay,LicenseDriverNumber,LicenseDriverValidaty,LicenseDriver2Number,LicenseDriver2Validaty,Dni,Dnivigencia,Iqpf,Status,CursosPortuarios,CursosPortuariosVigencia,InduccionImpala,InduccionImpalaVigencia,InduccionLogisminsa,InduccionLogisminsaVigencia,InduccionPerubar,InduccionPerubarVigencia,InduccionShouxin,InduccionShouxinVigencia,InduccionTisur,InduccionRansa,InduccionAcerosA")] Driver driver)
+        public async Task<IActionResult> Edit([Bind("Id,Name,BirthDay,LicenseDriverNumber,LicenseDriverValidaty,LicenseDriver2Number,LicenseDriver2Validaty,Dni,Dnivigencia,Iqpf,Status,CursosPortuarios,CursosPortuariosVigencia,InduccionImpala,InduccionImpalaVigencia,InduccionLogisminsa,InduccionLogisminsaVigencia,InduccionPerubar,InduccionPerubarVigencia,InduccionShouxin,InduccionShouxinVigencia,InduccionTisur,InduccionRansa,InduccionAcerosA")] Driver driver, String strBirthDay, String strDnivigencia, String strLicenseDriverValidaty, String strLicenseDriver2Validaty, String strCursosPortuariosVigencia, String strInduccionImpalaVigencia, String strInduccionLogisminsaVigencia, String strInduccionPerubarVigencia, String strInduccionShouxinVigencia)
         {
 
             try
             {
+                driver.BirthDay = DateTime.ParseExact(strBirthDay, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                driver.Dnivigencia = DateTime.ParseExact(strDnivigencia, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                driver.LicenseDriverValidaty = DateTime.ParseExact(strLicenseDriverValidaty, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                driver.LicenseDriver2Validaty = DateTime.ParseExact(strLicenseDriver2Validaty, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+
+                driver.CursosPortuariosVigencia = DateTime.ParseExact(strCursosPortuariosVigencia, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                driver.InduccionImpalaVigencia = DateTime.ParseExact(strInduccionImpalaVigencia, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                driver.InduccionLogisminsaVigencia = DateTime.ParseExact(strInduccionLogisminsaVigencia, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                driver.InduccionPerubarVigencia = DateTime.ParseExact(strInduccionPerubarVigencia, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                driver.InduccionShouxinVigencia = DateTime.ParseExact(strInduccionShouxinVigencia, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+
+
+
                 var driverEdit = await _context.Drivers.FindAsync(driver.Id);//.FirstOrDefaultAsync(m => m.UniqueId == client.UniqueId);
 
                 driverEdit.Name = driver.Name;

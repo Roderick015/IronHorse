@@ -15,7 +15,6 @@ namespace IronHorseCore.Models
         public int? Status { get; set; }
         public DateTime? Datepay { get; set; }
 
-
         public virtual Operation Operation { get; set; }
     }
 }

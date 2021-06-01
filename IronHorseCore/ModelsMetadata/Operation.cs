@@ -14,7 +14,8 @@ namespace IronHorseCore.Models
 
     public interface OperationMetaData
     {
-        public string Mes { get; set; }
+        [Display(Name = "Mes/Año")]
+        public string MonthYear { get; set; }
         [Display(Name = "Cliente")]
         public int ClientId { get; set; }
 
@@ -29,7 +30,7 @@ namespace IronHorseCore.Models
         public DateTime? LoadDate { get; set; }
         [Display(Name = "Fecha salida")]
         public DateTime? OutDate { get; set; }
-        [Display(Name = "Fecha Fin")]
+        [Display(Name = "Fecha fin")]
         public DateTime? EndDate { get; set; }
 
 
@@ -46,9 +47,9 @@ namespace IronHorseCore.Models
         [Display(Name = "Carreta")]
         public int CarretaId { get; set; }
 
-        [Display(Name = "Und de Cobro")]
+        [Display(Name = "Unidad de Cobro")]
         public int UnitId { get; set; }
-        [Display(Name = "Dato Und de Cobro")]
+        [Display(Name = "Dato Unidad de Cobro")]
         public float? UnitPay { get; set; }
         [Display(Name = "Moneda")]
         public int MoneyId { get; set; }
@@ -58,6 +59,8 @@ namespace IronHorseCore.Models
         public int OdometerEnd { get; set; }
         [Display(Name = "Combustible GL")]
         public float? Fuel { get; set; }
+        [Display(Name = "Capacidad")]
+        public float? Capacity { get; set; }
 
 
     }

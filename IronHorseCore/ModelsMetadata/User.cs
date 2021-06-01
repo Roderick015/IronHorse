@@ -36,6 +36,7 @@ namespace IronHorseCore.Models
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
+        [Display(Name = "Ultimo Acceso")]
         public DateTime LastAccess { get; set; }
 
         [Display(Name = "Habilitado")]

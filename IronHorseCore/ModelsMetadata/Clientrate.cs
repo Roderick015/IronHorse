@@ -34,17 +34,12 @@ namespace IronHorseCore.Models
         [Display(Name = "Moneda")]
         public int MoneyId { get; set; }
         [Display(Name = "Precio sin IGV")]
-        public float PriceWithoutVat { get; set; }
+        [Required(ErrorMessage = "Este es obligatorio")]
+        public decimal PriceWithoutVat { get; set; }
         [Display(Name = "Número de Contrato")]
         public string ContractNumber { get; set; }
         [Display(Name = "Expiracion de Contrato")]
         public string ContractExpiration { get; set; }
-
-
-
-
-
-
 
     }
 }

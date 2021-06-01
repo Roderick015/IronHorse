@@ -69,13 +69,13 @@ namespace IronHorseCore.Controllers
                 return RedirectToAction(nameof(Details), "Operations", new { id = driverexpense.OperationId });
             }
             ViewData["DriverId"] = new SelectList(_context.Drivers, "Id", "Dni", driverexpense.DriverId);
-            ViewData["OperationId"] = new SelectList(_context.Operations, "Id", "Mes", driverexpense.OperationId);
+            ViewData["OperationId"] = new SelectList(_context.Operations, "Id", "Id", driverexpense.OperationId);
             ViewData["TypeExpenseId"] = new SelectList(_context.Typeexpenses, "Id", "Name", driverexpense.TypeExpenseId);
             return View(driverexpense);
         }
 
         // GET: Driverexpenses/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, int driverid, int typeexpenseid, int operationid)
         {
             if (id == null)
             {
@@ -87,8 +87,14 @@ namespace IronHorseCore.Controllers
             {
                 return NotFound();
             }
+
+
+            driverexpense.DriverId = driverid;
+            driverexpense.OperationId = operationid;
+            driverexpense.TypeExpenseId = typeexpenseid;
+
             ViewData["DriverId"] = new SelectList(_context.Drivers, "Id", "Dni", driverexpense.DriverId);
-            ViewData["OperationId"] = new SelectList(_context.Operations, "Id", "Mes", driverexpense.OperationId);
+            ViewData["OperationId"] = new SelectList(_context.Operations, "Id", "Id", driverexpense.OperationId);
             ViewData["TypeExpenseId"] = new SelectList(_context.Typeexpenses, "Id", "Name", driverexpense.TypeExpenseId);
             return View(driverexpense);
         }
@@ -98,7 +104,7 @@ namespace IronHorseCore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DriverId,TypeExpenseId,Date,Description,Amount,OperacionDesignada,AprobadoPor,OperationId")] Driverexpense driverexpense)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,DriverId,TypeExpenseId,Date,Description,Amount,OperacionDesignada,AprobadoPor,OperationId")] Driverexpense driverexpense, String strDate)
         {
             if (id != driverexpense.Id)
             {
@@ -109,6 +115,7 @@ namespace IronHorseCore.Controllers
             {
                 try
                 {
+                    driverexpense.Date = DateTime.ParseExact(strDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
                     _context.Update(driverexpense);
                     await _context.SaveChangesAsync();
                 }
@@ -123,10 +130,10 @@ namespace IronHorseCore.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), "Operations", new { id = driverexpense.OperationId });
             }
             ViewData["DriverId"] = new SelectList(_context.Drivers, "Id", "Dni", driverexpense.DriverId);
-            ViewData["OperationId"] = new SelectList(_context.Operations, "Id", "Mes", driverexpense.OperationId);
+            ViewData["OperationId"] = new SelectList(_context.Operations, "Id", "Id", driverexpense.OperationId);
             ViewData["TypeExpenseId"] = new SelectList(_context.Typeexpenses, "Id", "Name", driverexpense.TypeExpenseId);
             return View(driverexpense);
         }
@@ -160,7 +167,7 @@ namespace IronHorseCore.Controllers
             var driverexpense = await _context.Driverexpenses.FindAsync(id);
             _context.Driverexpenses.Remove(driverexpense);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Details), "Operations", new { id = driverexpense.OperationId });
         }
 
         private bool DriverexpenseExists(int id)

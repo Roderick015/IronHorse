@@ -21,9 +21,9 @@
                 @Html.DisplayNameFor(model => model.Pay)
             </th>
             @*
-            <th>
-                @Html.DisplayNameFor(model => model.Operations)
-            </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Operations)
+                </th>
             *@
             <th></th>
         </tr>
@@ -39,9 +39,9 @@
                     @Html.DisplayFor(modelItem => item.Pay)
                 </td>
                 @*
-                <td>
-                    @Html.DisplayFor(modelItem => item.Operations.Id)
-                </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Operations.Id)
+                    </td>
                 *@
                 <td nowrap>
                     <a asp-action="Edit" asp-route-id="@item.Id" class="text-primary"><i class="fas fa-edit"></i> Editar</a> |

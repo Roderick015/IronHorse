@@ -25,7 +25,7 @@
                 <div class="col-6">
                     <div class="form-group">
                         <label asp-for="BirthDay" class="control-label"></label>
-                        <input asp-for="BirthDay" class="form-control form-control-sm datepicker-input" />
+                        <input id="strBirthDay" name="strBirthDay" class="form-control" value="@Convert.ToDateTime(Model.BirthDay).ToString("dd/MM/yyyy")" />
                         <span asp-validation-for="BirthDay" class="text-danger"></span>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                 <div class="col-6">
                     <div class="form-group">
                         <label asp-for="Dnivigencia" class="control-label"></label>
-                        <input asp-for="Dnivigencia" class="form-control form-control-sm datepicker-input" />
+                        <input id="strDnivigencia" name="strBirthDay" class="form-control" value="@Convert.ToDateTime(Model.Dnivigencia).ToString("dd/MM/yyyy")" />
                         <span asp-validation-for="Dnivigencia" class="text-danger"></span>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                 <div class="col-6">
                     <div class="form-group">
                         <label asp-for="LicenseDriverValidaty" class="control-label"></label>
-                        <input asp-for="LicenseDriverValidaty" class="form-control form-control-sm datepicker-input" />
+                        <input id="strLicenseDriverValidaty" name="strBirthDay" class="form-control" value="@Convert.ToDateTime(Model.LicenseDriverValidaty).ToString("dd/MM/yyyy")" />
                         <span asp-validation-for="LicenseDriverValidaty" class="text-danger"></span>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                 <div class="col-6">
                     <div class="form-group">
                         <label asp-for="LicenseDriver2Validaty" class="control-label"></label>
-                        <input asp-for="LicenseDriver2Validaty" class="form-control form-control-sm datepicker-input" />
+                        <input id="strLicenseDriver2Validaty" name="strBirthDay" class="form-control" value="@Convert.ToDateTime(Model.LicenseDriver2Validaty).ToString("dd/MM/yyyy")" />
                         <span asp-validation-for="LicenseDriver2Validaty" class="text-danger"></span>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                 </div>
                 <div class="col-4">
                     <div class="form-group">
-                        <input asp-for="CursosPortuariosVigencia" class="form-control form-control-sm datepicker-input" />
+                        <input id="strCursosPortuariosVigencia" name="strBirthDay" class="form-control" value="@Convert.ToDateTime(Model.CursosPortuariosVigencia).ToString("dd/MM/yyyy")" />
                         <span asp-validation-for="CursosPortuariosVigencia" class="text-danger"></span>
                     </div>
                 </div>
@@ -127,7 +127,7 @@
                 </div>
                 <div class="col-4">
                     <div class="form-group">
-                        <input asp-for="InduccionImpalaVigencia" class="form-control form-control-sm datepicker-input" />
+                        <input id="strInduccionImpalaVigencia" name="strBirthDay" class="form-control" value="@Convert.ToDateTime(Model.InduccionImpalaVigencia).ToString("dd/MM/yyyy")" />
                         <span asp-validation-for="InduccionImpalaVigencia" class="text-danger"></span>
                     </div>
                 </div>
@@ -147,7 +147,7 @@
                 </div>
                 <div class="col-4">
                     <div class="form-group">
-                        <input asp-for="InduccionLogisminsaVigencia" class="form-control form-control-sm datepicker-input" />
+                        <input id="strInduccionLogisminsaVigencia" name="strBirthDay" class="form-control" value="@Convert.ToDateTime(Model.InduccionLogisminsaVigencia).ToString("dd/MM/yyyy")" />
                         <span asp-validation-for="InduccionLogisminsaVigencia" class="text-danger"></span>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
                 </div>
                 <div class="col-4">
                     <div class="form-group">
-                        <input asp-for="InduccionPerubarVigencia" class="form-control form-control-sm datepicker-input" />
+                        <input id="strInduccionPerubarVigencia" name="strBirthDay" class="form-control" value="@Convert.ToDateTime(Model.InduccionPerubarVigencia).ToString("dd/MM/yyyy")" />
                         <span asp-validation-for="InduccionPerubarVigencia" class="text-danger"></span>
                     </div>
                 </div>
@@ -187,7 +187,7 @@
                 </div>
                 <div class="col-4">
                     <div class="form-group">
-                        <input asp-for="InduccionShouxinVigencia" class="form-control form-control-sm datepicker-input" />
+                        <input id="strInduccionShouxinVigencia" name="strBirthDay" class="form-control" value="@Convert.ToDateTime(Model.InduccionShouxinVigencia).ToString("dd/MM/yyyy")" />
                         <span asp-validation-for="InduccionShouxinVigencia" class="text-danger"></span>
                     </div>
                 </div>
@@ -231,11 +231,55 @@
     <script src="~/lib/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>
 
     <script>
-    $('.datepicker-input').datepicker({
-        language: "es",
-        autoclose: true,
-        todayHighlight: true
-    });
+
+        //Agregarle el datepicker del javascript
+
+        $('#strBirthDay').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#strDnivigencia').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#strLicenseDriverValidaty').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#strLicenseDriver2Validaty').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#strCursosPortuariosVigencia').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#strInduccionImpalaVigencia').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#strInduccionLogisminsaVigencia').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#strInduccionPerubarVigencia').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#strInduccionShouxinVigencia').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+
     </script>
 
 }

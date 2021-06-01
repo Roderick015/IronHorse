@@ -69,7 +69,7 @@ namespace IronHorseCore.Models
                     .HasMaxLength(12)
                     .HasComment("Serie - numero de factura");
 
-                entity.Property(e => e.Status).HasComment("Estado de la factura(Factura generada, Factura pagada, Factura anulada)");
+                entity.Property(e => e.Status).HasComment("Estado de la factura(Factura generada = 1, Factura pagada = 2, Factura anulada = 3)");
 
                 entity.Property(e => e.Total)
                     .HasPrecision(10, 2)
@@ -98,7 +98,7 @@ namespace IronHorseCore.Models
 
                 entity.Property(e => e.Address)
                     .IsRequired()
-                    .HasMaxLength(50)
+                    .HasMaxLength(150)
                     .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.Code)
@@ -178,6 +178,7 @@ namespace IronHorseCore.Models
                 entity.Property(e => e.MoneyId).HasComment("Moneda");
 
                 entity.Property(e => e.PriceWithoutVat)
+                    .HasPrecision(10, 2)
                     .HasColumnName("PriceWithoutVAT")
                     .HasComment("Precio sin IGV	");
 

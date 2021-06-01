@@ -41,17 +41,22 @@ namespace IronHorseCore.Controllers
                 .Include(o => o.Driver)
                 .Include(o => o.Tracto)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (operation == null)
             {
                 return NotFound();
             }
 
 
-            ViewBag.DiverExpenses = await _context.Driverexpenses
+            ViewBag.DriverExpenses = await _context.Driverexpenses
                .Include(d => d.Driver)
                .Include(d => d.TypeExpense)
+               .Include(d => d.Operation)
                .Where(m => m.OperationId == operation.Id).ToListAsync();
 
+
+            ViewBag.TollLista = await _context.Tolls
+               .Where(m => m.OperationsId == operation.Id).ToListAsync();
 
             return View(operation);
         }
@@ -117,7 +122,7 @@ namespace IronHorseCore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,MonthYear,DriverId,ClientId,ClientrateId,OutDate,EndDate,TractoId,CarretaId,LoadDate,CarrierId,OdometerBegin,OdometerEnd,UnitPay,Fuel,Capacity")] Operation operation)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,MonthYear,DriverId,ClientId,ClientrateId,OutDate,EndDate,TractoId,CarretaId,LoadDate,CarrierId,OdometerBegin,OdometerEnd,UnitPay,Fuel,Capacity")] Operation operation, String strOutDate, String strEndDate, String strLoadDate)
         {
             if (id != operation.Id)
             {
@@ -128,6 +133,9 @@ namespace IronHorseCore.Controllers
             {
                 try
                 {
+                    operation.OutDate = DateTime.ParseExact(strOutDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                    operation.EndDate = DateTime.ParseExact(strEndDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                    operation.LoadDate = DateTime.ParseExact(strLoadDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
                     _context.Update(operation);
                     await _context.SaveChangesAsync();
                 }

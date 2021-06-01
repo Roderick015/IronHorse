@@ -15,6 +15,8 @@ namespace IronHorseCore.Models
     public interface DriverexpenseMetaData
     {
         public int DriverId { get; set; }
+
+        [Display(Name = "Tipo de Gasto")]
         public int TypeExpenseId { get; set; }
 
         [Display(Name = "Fecha")]

@@ -17,29 +17,34 @@
                 <span asp-validation-for="MonthYear" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DriverId" class="control-label"></label>
-                <select asp-for="DriverId" class="form-control" asp-items="ViewBag.DriverId"></select>
-                <span asp-validation-for="DriverId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="ClientId" class="control-label"></label>
                 <select asp-for="ClientId" class="form-control" asp-items="ViewBag.ClientId"></select>
                 <span asp-validation-for="ClientId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ClientrateId" class="control-label"></label>
-                <select asp-for="ClientrateId" class="form-control" asp-items="ViewBag.ClientrateId"></select>
-                <span asp-validation-for="ClientrateId" class="text-danger"></span>
+                <label asp-for="CarrierId" class="control-label"></label>
+                <select asp-for="CarrierId" class="form-control" asp-items="ViewBag.CarrierId"></select>
+                <span asp-validation-for="CarrierId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LoadDate" class="control-label"></label>
+                <input id="strLoadDate" name="strLoadDate" class="form-control" value="@Convert.ToDateTime(Model.LoadDate).ToString("dd/MM/yyyy")" />
+                <span asp-validation-for="LoadDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="OutDate" class="control-label"></label>
-                <input asp-for="OutDate" class="form-control" />
+                <input id="strOutDate" name="strOutDate" class="form-control" value="@Convert.ToDateTime(Model.OutDate).ToString("dd/MM/yyyy")" />
                 <span asp-validation-for="OutDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" />
+                <input id="strEndDate" name="strEndDate" class="form-control" value="@Convert.ToDateTime(Model.EndDate).ToString("dd/MM/yyyy")" />
                 <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverId" class="control-label"></label>
+                <select asp-for="DriverId" class="form-control" asp-items="ViewBag.DriverId"></select>
+                <span asp-validation-for="DriverId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TractoId" class="control-label"></label>
@@ -52,14 +57,14 @@
                 <span asp-validation-for="CarretaId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LoadDate" class="control-label"></label>
-                <input asp-for="LoadDate" class="form-control" />
-                <span asp-validation-for="LoadDate" class="text-danger"></span>
+                <label asp-for="UnitPay" class="control-label"></label>
+                <input asp-for="UnitPay" class="form-control" />
+                <span asp-validation-for="UnitPay" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CarrierId" class="control-label"></label>
-                <select asp-for="CarrierId" class="form-control" asp-items="ViewBag.CarrierId"></select>
-                <span asp-validation-for="CarrierId" class="text-danger"></span>
+                <label asp-for="ClientrateId" class="control-label"></label>
+                <select asp-for="ClientrateId" class="form-control" asp-items="ViewBag.ClientrateId"></select>
+                <span asp-validation-for="ClientrateId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="OdometerBegin" class="control-label"></label>
@@ -70,11 +75,6 @@
                 <label asp-for="OdometerEnd" class="control-label"></label>
                 <input asp-for="OdometerEnd" class="form-control" />
                 <span asp-validation-for="OdometerEnd" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UnitPay" class="control-label"></label>
-                <input asp-for="UnitPay" class="form-control" />
-                <span asp-validation-for="UnitPay" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Fuel" class="control-label"></label>
@@ -111,9 +111,7 @@
 
     <script>
         //Set a los atributos de los input date para convertirlos en tipo texto
-        $('#OutDate').attr('type', 'text');
-        $('#EndDate').attr('type', 'text');
-        $('#LoadDate').attr('type', 'text');
+
 
         $('#MonthYear').datepicker({
             format: "mm/yyyy",
@@ -123,17 +121,17 @@
         });
 
         //Agregarle el datepicker del javascript
-        $('#OutDate').datepicker({
+        $('#strLoadDate').datepicker({
             language: "es",
             autoclose: true,
             todayHighlight: true
         });
-        $('#EndDate').datepicker({
+        $('#strOutDate').datepicker({
             language: "es",
             autoclose: true,
             todayHighlight: true
         });
-        $('#LoadDate').datepicker({
+        $('#strEndDate').datepicker({
             language: "es",
             autoclose: true,
             todayHighlight: true

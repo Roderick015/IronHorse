@@ -17,31 +17,32 @@
                 <span asp-validation-for="OperationId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Created" class="control-label"></label>
-                <input asp-for="Created" class="form-control" />
-                <span asp-validation-for="Created" class="text-danger"></span>
+                <label asp-for="SerialNumber" class="control-label"></label>
+                <input asp-for="SerialNumber" class="form-control" />
+                <span asp-validation-for="SerialNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Datepay" class="control-label"></label>
+                <input id="strDatepay" name="strDatepay" class="form-control" value="@Convert.ToDateTime(Model.Datepay).ToString("dd/MM/yyyy")" />
+                <span asp-validation-for="Datepay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" class="form-control form-control-sm" asp-items="ViewBag.TypeBillStatus"></select>
+                <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Total" class="control-label"></label>
                 <input asp-for="Total" class="form-control" />
                 <span asp-validation-for="Total" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="SerialNumber" class="control-label"></label>
-                <input asp-for="SerialNumber" class="form-control" />
-                <span asp-validation-for="SerialNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Datepay" class="control-label"></label>
-                <input id="strDatepay" name="strDatepay" class="form-control"  value="@Convert.ToDateTime(Model.Datepay).ToString("dd/MM/yyyy")" />
-               
-                <span asp-validation-for="Datepay" class="text-danger"></span>
-            </div>
+            @*
+                <div class="form-group">
+                    <label asp-for="Created" class="control-label"></label>
+                    <input asp-for="Created" class="form-control" />
+                    <span asp-validation-for="Created" class="text-danger"></span>
+                </div>
+            *@
             <div class="form-group">
                 <input type="submit" value="Grabar" class="btn btn-primary" />
             </div>
@@ -66,17 +67,8 @@
     <script src="~/lib/select2/js/i18n/es.js"></script>
 
     <script>
-        //Set a los atributos de los input date para convertirlos en tipo texto
-        $('#Created').attr('type', 'text');
-        //$('#Datepay').attr('type', 'text');
-        
 
         //Agregarle el datepicker del javascript
-        $('#Created').datepicker({
-            language: "es",
-            autoclose: true,
-            todayHighlight: true
-        });
 
         $('#strDatepay').datepicker({
             language: "es",
@@ -87,6 +79,6 @@
 
         $('#OperationId').select2({
             theme: 'bootstrap4',
-        });        
+        });
     </script>
 }

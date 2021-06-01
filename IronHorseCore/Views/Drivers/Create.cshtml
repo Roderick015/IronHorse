@@ -178,7 +178,7 @@
                 </div>
                 <div class="col-4">
                     <div class="form-group">
-                        <label asp-for="InduccionShouxinVigencia" class="control-label"></label>                       
+                        <label asp-for="InduccionShouxinVigencia" class="control-label"></label>
                     </div>
                 </div>
                 <div class="col-4">
@@ -217,16 +217,71 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-<link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
-<script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script src="~/lib/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>
 
-<script>
-    $('.datepicker-input').datepicker({
-        language: "es",
-        autoclose: true,
-        todayHighlight: true
-    });
-</script>
+    <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/lib/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>
+
+    <script>
+        //Set a los atributos de los input date para convertirlos en tipo texto
+        $('#BirthDay').attr('type', 'text');
+        $('#Dnivigencia').attr('type', 'text');
+        $('#LicenseDriverValidaty').attr('type', 'text');
+        $('#LicenseDriver2Validaty').attr('type', 'text');
+        $('#CursosPortuariosVigencia').attr('type', 'text');
+        $('#InduccionImpalaVigencia').attr('type', 'text');
+        $('#InduccionLogisminsaVigencia').attr('type', 'text');
+        $('#InduccionPerubarVigencia').attr('type', 'text');
+        $('#InduccionShouxinVigencia').attr('type', 'text');
+
+
+        //Agregarle el datepicker del javascript
+        $('#BirthDay').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#Dnivigencia').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#LicenseDriverValidaty').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#LicenseDriver2Validaty').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#CursosPortuariosVigencia').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#InduccionImpalaVigencia').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#InduccionLogisminsaVigencia').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#InduccionPerubarVigencia').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#InduccionShouxinVigencia').datepicker({
+            language: "es",
+            autoclose: true,
+            todayHighlight: true
+        });
+
+    </script>
 
 }

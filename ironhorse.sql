@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `bill` (
 DELETE FROM `bill`;
 /*!40000 ALTER TABLE `bill` DISABLE KEYS */;
 INSERT INTO `bill` (`Id`, `OperationId`, `Created`, `Total`, `SerialNumber`, `Status`, `Datepay`) VALUES
-	(1, 1, '2021-05-28 15:44:58', 25.00, '4646521', 1, '2021-05-28 15:45:26');
+	(1, 1, NULL, 25.50, '4646521', 1, '2021-05-28 00:00:00');
 /*!40000 ALTER TABLE `bill` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.carrier
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `carrier` (
   `Name` varchar(500) NOT NULL DEFAULT '0',
   `Enabled` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ironhorse.carrier: ~4 rows (aproximadamente)
 DELETE FROM `carrier`;
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL DEFAULT '0',
   `Code` varchar(50) NOT NULL DEFAULT '0',
-  `Address` varchar(50) NOT NULL DEFAULT '0',
+  `Address` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0',
   `Contact` varchar(50) DEFAULT '0',
   `ContactPhone` varchar(50) DEFAULT '0',
   `ContactEmail` varchar(50) DEFAULT '0',
@@ -74,13 +74,14 @@ CREATE TABLE IF NOT EXISTS `client` (
   `MetaAuth` json NOT NULL,
   `IsRemoved` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ironhorse.client: ~0 rows (aproximadamente)
 DELETE FROM `client`;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
 INSERT INTO `client` (`Id`, `Name`, `Code`, `Address`, `Contact`, `ContactPhone`, `ContactEmail`, `Enabled`, `UniqueId`, `MetaAuth`, `IsRemoved`) VALUES
-	(1, 'Las Gemelas', '0001', 'Calle Jerusalen 121 of2 Arequipa Arequipa', 'Juan Perez', '201804', 'q@hhh.com', 1, '8174e38f-ebe3-4b4e-ade0-be2169331c2d', '{"Created": "2021-05-13T17:37:17.8978585-05:00", "Removed": null, "Modified": "2021-05-23T18:39:57.5754062-05:00", "CreatedUserID": 1, "RemovedUserID": null, "ModifiedUserID": 1}', 0);
+	(1, 'Las Gemelas', '0001', 'Calle Jerusalen 121 of2 Arequipa Arequipa', 'Juan Perez', '201804', 'q@hhh.com', 1, '8174e38f-ebe3-4b4e-ade0-be2169331c2d', '{"Created": "2021-05-13T17:37:17.8978585-05:00", "Removed": null, "Modified": "2021-05-23T18:39:57.5754062-05:00", "CreatedUserID": 1, "RemovedUserID": null, "ModifiedUserID": 1}', 0),
+	(2, 'Los Rapidos', '20699925851', 'Urb. Quinta Tristán 2do Parque, Los Cedros, José Luis Bustamante y Rivero', 'Pedro Luis', '111222333', 'correo@gmail.com', 1, '7a5df7ec-cac3-4921-9cc4-189040dacb44', '{"Created": "2021-05-31T11:08:12.6690142-05:00", "Removed": null, "Modified": "2021-05-31T11:13:09.1910863-05:00", "CreatedUserID": 1, "RemovedUserID": null, "ModifiedUserID": 1}', 1);
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.clientrate
@@ -96,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `clientrate` (
   `DestinyId` int NOT NULL DEFAULT '0' COMMENT 'Destino',
   `UnitId` int NOT NULL DEFAULT '0' COMMENT 'Unidad',
   `MoneyId` int NOT NULL DEFAULT '0' COMMENT 'Moneda',
-  `PriceWithoutVAT` float NOT NULL COMMENT 'Precio sin IGV	',
+  `PriceWithoutVAT` decimal(10,2) DEFAULT NULL COMMENT 'Precio sin IGV	',
   `ContractNumber` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT 'Número de contrato	',
   `ContractExpiration` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT 'Vencimiento de contrato',
   `Enabled` tinyint(1) NOT NULL DEFAULT '0',
@@ -120,13 +121,14 @@ CREATE TABLE IF NOT EXISTS `clientrate` (
   CONSTRAINT `FK_typeproduct` FOREIGN KEY (`TypeProductId`) REFERENCES `typeproduct` (`Id`),
   CONSTRAINT `FK_typeservice` FOREIGN KEY (`TypeServiceId`) REFERENCES `typeservice` (`Id`),
   CONSTRAINT `FK_unit` FOREIGN KEY (`UnitId`) REFERENCES `unit` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ironhorse.clientrate: ~0 rows (aproximadamente)
 DELETE FROM `clientrate`;
 /*!40000 ALTER TABLE `clientrate` DISABLE KEYS */;
 INSERT INTO `clientrate` (`Id`, `ClientId`, `TypeServiceId`, `TypeLoadId`, `TypeProductId`, `Description`, `SourceId`, `DestinyId`, `UnitId`, `MoneyId`, `PriceWithoutVAT`, `ContractNumber`, `ContractExpiration`, `Enabled`, `UniqueId`, `MetaAuth`, `IsRemoved`) VALUES
-	(2, 1, 2, 8, 2, 'Tarifa de ejemplo 1', 9, 1, 1, 1, 15, 'F0001', 'F0002', 0, '3ea329b2-da7e-4929-bbf0-82c1a8c5425a', '{"Created": "2021-05-27T15:22:43.8153726-05:00", "Removed": null, "Modified": "2021-05-27T16:04:47.1112362-05:00", "CreatedUserID": 1, "RemovedUserID": null, "ModifiedUserID": 1}', 0);
+	(2, 1, 2, 8, 2, 'Tarifa de ejemplo 1', 9, 1, 1, 1, 150.00, 'F0001', 'F0003', 0, '3ea329b2-da7e-4929-bbf0-82c1a8c5425a', '{"Created": "2021-05-27T15:22:43.8153726-05:00", "Removed": null, "Modified": "2021-05-31T16:56:51.8455286-05:00", "CreatedUserID": 1, "RemovedUserID": null, "ModifiedUserID": 1}', 0),
+	(3, 1, 1, 4, 2, 'descripcion', 1, 3, 1, 1, 12.30, '4555', '46666', 0, 'ff48db9c-6647-49b5-bfb1-694d50ddedb2', '{"Created": "2021-05-31T16:14:14.1583568-05:00", "Removed": null, "Modified": "2021-05-31T16:59:03.2427044-05:00", "CreatedUserID": 1, "RemovedUserID": null, "ModifiedUserID": 1}', 0);
 /*!40000 ALTER TABLE `clientrate` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.driver
@@ -190,14 +192,16 @@ CREATE TABLE IF NOT EXISTS `driverexpenses` (
   CONSTRAINT `FK_driverexpenses_driver` FOREIGN KEY (`DriverId`) REFERENCES `driver` (`Id`),
   CONSTRAINT `FK_driverexpenses_operations` FOREIGN KEY (`OperationId`) REFERENCES `operations` (`Id`),
   CONSTRAINT `FK_driverexpenses_typeexpenses` FOREIGN KEY (`TypeExpenseId`) REFERENCES `typeexpenses` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ironhorse.driverexpenses: ~2 rows (aproximadamente)
 DELETE FROM `driverexpenses`;
 /*!40000 ALTER TABLE `driverexpenses` DISABLE KEYS */;
 INSERT INTO `driverexpenses` (`Id`, `DriverId`, `TypeExpenseId`, `Date`, `Description`, `Amount`, `OperacionDesignada`, `AprobadoPor`, `OperationId`) VALUES
-	(1, 2, 1, '2021-05-23 00:00:00', 'Habitacion de hotel dia 23/05', 150, 1, 1, 1),
-	(2, 2, 1, '2021-05-23 00:00:00', 'Habitacion de hotel dia 23/05', 150, NULL, NULL, 1);
+	(1, 2, 3, '2021-05-23 00:00:00', 'Habitacion de hotel dia 23/05', 151.5, 1, 1, 1),
+	(2, 2, 1, '2021-05-23 00:00:00', 'Habitacion de hotel dia 23/05', 150, NULL, NULL, 1),
+	(3, 2, 1, '2021-05-31 00:00:00', 'Habitacion Noche', 130.33, NULL, NULL, 2),
+	(4, 2, 2, '2021-05-31 00:00:00', 'Comida cena', 12.5, NULL, NULL, 2);
 /*!40000 ALTER TABLE `driverexpenses` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.maintenance
@@ -279,13 +283,14 @@ CREATE TABLE IF NOT EXISTS `operations` (
   CONSTRAINT `FK_operations_driver` FOREIGN KEY (`DriverId`) REFERENCES `driver` (`Id`),
   CONSTRAINT `FK_operations_truck_carreta` FOREIGN KEY (`CarretaId`) REFERENCES `truck` (`Id`),
   CONSTRAINT `FK_operations_truck_tracto` FOREIGN KEY (`TractoId`) REFERENCES `truck` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ironhorse.operations: ~0 rows (aproximadamente)
 DELETE FROM `operations`;
 /*!40000 ALTER TABLE `operations` DISABLE KEYS */;
 INSERT INTO `operations` (`Id`, `MonthYear`, `DriverId`, `ClientId`, `ClientrateId`, `OutDate`, `EndDate`, `TractoId`, `CarretaId`, `LoadDate`, `CarrierId`, `OdometerBegin`, `OdometerEnd`, `UnitPay`, `Fuel`, `Capacity`) VALUES
-	(1, '05/2021', 2, 1, 2, '2021-05-23 00:00:00', '2021-05-26 00:00:00', 1, 1, '2021-05-23 00:00:00', 1, 0, 0, 3, NULL, NULL);
+	(1, '05/2021', 2, 1, 2, '2021-05-23 00:00:00', '2021-05-26 00:00:00', 1, 1, '2021-05-23 00:00:00', 1, 0, 0, 3, NULL, NULL),
+	(2, '07/2021', 2, 1, 3, '2021-05-29 00:00:00', '2021-05-31 00:00:00', 1, 1, '2021-05-23 00:00:00', 1, 555, 777, 3, 4546, 322);
 /*!40000 ALTER TABLE `operations` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.place
@@ -326,13 +331,14 @@ CREATE TABLE IF NOT EXISTS `toll` (
   PRIMARY KEY (`Id`),
   KEY `FK_toll_operations` (`OperationsId`),
   CONSTRAINT `FK_toll_operations` FOREIGN KEY (`OperationsId`) REFERENCES `operations` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ironhorse.toll: ~0 rows (aproximadamente)
 DELETE FROM `toll`;
 /*!40000 ALTER TABLE `toll` DISABLE KEYS */;
 INSERT INTO `toll` (`Id`, `OperationsId`, `DatePay`, `Pay`) VALUES
-	(1, 1, '2021-05-28 15:17:39', 15.00);
+	(1, 1, '2021-05-28 15:17:39', 15.00),
+	(2, 2, '2021-05-31 19:31:42', 16.00);
 /*!40000 ALTER TABLE `toll` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.truck
@@ -387,9 +393,9 @@ CREATE TABLE IF NOT EXISTS `typeexpenses` (
 DELETE FROM `typeexpenses`;
 /*!40000 ALTER TABLE `typeexpenses` DISABLE KEYS */;
 INSERT INTO `typeexpenses` (`Id`, `Name`, `Enabled`) VALUES
-	(1, 'Habitación', NULL),
-	(2, 'Comida', NULL),
-	(3, 'Movilidad', NULL);
+	(1, 'Habitación', 1),
+	(2, 'Comida', 1),
+	(3, 'Movilidad', 1);
 /*!40000 ALTER TABLE `typeexpenses` ENABLE KEYS */;
 
 -- Volcando estructura para tabla ironhorse.typeload
@@ -489,14 +495,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   `IsRemoved` tinyint(1) NOT NULL,
   `ConfirmationEmail` tinyint(1) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla ironhorse.user: ~2 rows (aproximadamente)
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`Id`, `TypeDoc`, `NumberDoc`, `FirstName`, `LastName`, `Email`, `CellPhone`, `Phone`, `Password`, `LastAccess`, `Enabled`, `Rol`, `UniqueId`, `MetaAuth`, `IsRemoved`, `ConfirmationEmail`) VALUES
 	(1, 'DNI', '46544659', 'Roderick', 'Cusirramos', 'roderick20@hotmail.com', '654', '564', 'Aladino?09', '0001-01-01 00:00:00', 1, 'Gerente de Operaciones', '4fb2eca3-30f3-42ff-9fd5-3f176bcbd64e', '{"Created": "2021-05-13T15:44:59.7208707-05:00", "Removed": null, "Modified": "2021-05-13T15:44:59.7209327-05:00", "CreatedUserID": 1, "RemovedUserID": null, "ModifiedUserID": 1}', 0, 1),
-	(2, 'CE', '46544659', 'Juan', 'Perez', 'benjamin20@hotmail.com', '654', '35489', 'Aladino?09', '0001-01-01 00:00:00', 1, 'Conductor', 'b72ce55a-3be6-4d04-8ac8-9a4b236485fa', '{"Created": "2021-05-13T16:19:22.2628102-05:00", "Removed": null, "Modified": "2021-05-13T16:19:22.2628836-05:00", "CreatedUserID": 1, "RemovedUserID": null, "ModifiedUserID": 1}', 1, 1);
+	(2, 'CE', '46544659', 'Juan', 'Perez', 'benjamin20@hotmail.com', '654', '35489', 'Aladino?09', '0001-01-01 00:00:00', 1, 'Conductor', 'b72ce55a-3be6-4d04-8ac8-9a4b236485fa', '{"Created": "2021-05-13T16:19:22.2628102-05:00", "Removed": null, "Modified": "2021-05-13T16:19:22.2628836-05:00", "CreatedUserID": 1, "RemovedUserID": null, "ModifiedUserID": 1}', 1, 1),
+	(3, 'DNI', '12345678', 'Gustavo', 'Castro Delgado', 'gustavocastro0618@gmail.com', '111222333', '111222333', 'contra123', '0001-01-01 00:00:00', 1, 'Gerente General', '2ea613d8-eb09-40ad-925c-6456a41d37ab', '{"Created": "2021-05-31T10:27:54.2759367-05:00", "Removed": null, "Modified": "2021-05-31T10:47:32.9053705-05:00", "CreatedUserID": 1, "RemovedUserID": null, "ModifiedUserID": 1}', 1, 0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

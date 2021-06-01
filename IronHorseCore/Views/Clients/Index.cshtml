@@ -41,34 +41,34 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contact)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContactPhone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContactEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Enabled)
-            </td>
-            <td nowrap>
-                <a asp-action="Edit" asp-route-id="@item.UniqueId" class="text-primary"><i class="fas fa-edit"></i> Editar</a> |
-                <a asp-action="Details" asp-route-uniqueid="@item.UniqueId" class="text-info"><i class="fas fa-bookmark"></i> Detalle</a> |
-                <a asp-action="Delete" asp-route-id="@item.UniqueId" class="text-danger"><i class="fas fa-trash"></i> Eliminar</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContactPhone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContactEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Enabled)
+                </td>
+                <td nowrap>
+                    <a asp-action="Edit" asp-route-id="@item.UniqueId" class="text-primary"><i class="fas fa-edit"></i> Editar</a> |
+                    <a asp-action="Details" asp-route-uniqueid="@item.UniqueId" class="text-info"><i class="fas fa-bookmark"></i> Detalle</a> |
+                    <a asp-action="Delete" asp-route-id="@item.UniqueId" class="text-danger"><i class="fas fa-trash"></i> Eliminar</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

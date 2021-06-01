@@ -24,11 +24,8 @@ namespace IronHorseCore.Controllers
 
         private List<SelectListItem> RolList = new List<SelectListItem>
                 {
-                        new SelectListItem { Text = "Gerente General", Value = "Gerente General"},// ve todo                     
+                        new SelectListItem { Text = "Gerente General", Value = "Gerente General"},// ve todo
                         
-                        
-                        
-                       
                         new SelectListItem { Text = "Gerente de Operaciones", Value = "Gerente de Operaciones 5"},
                         new SelectListItem { Text = "Jefe de Transportes", Value = "Jefe de Transportes 4"},
                         new SelectListItem { Text = "Supervisor de Transportes", Value = "Supervisor de Transportes 3"},
@@ -82,6 +79,9 @@ namespace IronHorseCore.Controllers
                 auth.ModifiedUserID = (int)HttpContext.Session.GetInt32("UserId");
                 user.MetaAuth = JsonSerializer.Serialize(auth);
                 user.IsRemoved = false;
+
+
+
                 _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -110,9 +110,10 @@ namespace IronHorseCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind("UniqueId,TypeDoc,NumberDoc,FirstName,LastName,Email,CellPhone,Phone,Password,Enabled,Rol")] User user)
         {
-            var userEdit = await _context.Users.FirstOrDefaultAsync(m => m.UniqueId == user.UniqueId);
+
             try
             {
+                var userEdit = await _context.Users.FirstOrDefaultAsync(m => m.UniqueId == user.UniqueId);
                 userEdit.TypeDoc = user.TypeDoc;
                 userEdit.NumberDoc = user.NumberDoc;
                 userEdit.FirstName = user.FirstName;
@@ -129,14 +130,14 @@ namespace IronHorseCore.Controllers
                 auth.Modified = DateTime.Now;
                 userEdit.MetaAuth = JsonSerializer.Serialize(auth);
 
-                _context.Update(user);
+                _context.Update(userEdit);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateConcurrencyException)
             {
-                
+
             }
 
             ViewBag.TypeDocList = new SelectList(TypeDocList, "Value", "Text", user.TypeDoc);
@@ -148,7 +149,7 @@ namespace IronHorseCore.Controllers
         // GET: Users/Delete/5
         public async Task<IActionResult> Delete(String id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(m => m.UniqueId == id);          
+            var user = await _context.Users.FirstOrDefaultAsync(m => m.UniqueId == id);
 
             return View(user);
         }

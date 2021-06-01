@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    var list = (List<SelectListItem>)ViewBag.TypeBillStatus;
 }
 
 <div class="page-title-box">
@@ -15,23 +16,25 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Total)
+                @Html.DisplayNameFor(model => model.OperationId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.SerialNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Datepay)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Operation)
+                @Html.DisplayNameFor(model => model.Status)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            @*
+                <th>
+                    @Html.DisplayNameFor(model => model.Created)
+                </th>
+            *@
             <th></th>
         </tr>
     </thead>
@@ -40,23 +43,25 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Created)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Total)
+                    @Html.DisplayFor(modelItem => item.Operation.Id)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SerialNumber)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Status)
+                    @Convert.ToDateTime(item.Datepay).ToString("dd/MM/yyyy")
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Datepay)
+                    @list.Where(m => m.Value == item.Status.ToString()).First().Text
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Operation.Id)
+                    @Html.DisplayFor(modelItem => item.Total)
                 </td>
+                @*
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                *@
                 <td nowrap>
                     <a asp-action="Edit" asp-route-id="@item.Id" class="text-primary"><i class="fas fa-edit"></i> Editar</a> |
                     <a asp-action="Details" asp-route-id="@item.Id" class="text-info"><i class="fas fa-bookmark"></i> Detalle</a> |

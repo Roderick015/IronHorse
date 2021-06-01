@@ -11,13 +11,16 @@
         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Operación</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Datos del viaje</a>
+        <a class="nav-link" id="datos-tab" data-toggle="tab" href="#datos" role="tab" aria-controls="datos" aria-selected="false">Datos del viaje</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Gastos del Conductor</a>
+        <a class="nav-link" id="gastos-tab" data-toggle="tab" href="#gastos" role="tab" aria-controls="gastos" aria-selected="false">Gastos del Conductor</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link" id="contact1-tab" data-toggle="tab" href="#contact1" role="tab" aria-controls="contact1" aria-selected="false">Costo del servicio</a>
+        <a class="nav-link" id="costos-tab" data-toggle="tab" href="#costos" role="tab" aria-controls="costos" aria-selected="false">Costo del servicio</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="peajes-tab" data-toggle="tab" href="#peajes" role="tab" aria-controls="peajes" aria-selected="false">Peajes</a>
     </li>
 </ul>
 <div class="tab-content" id="myTabContent">
@@ -41,7 +44,7 @@
             <dd class="col-sm-7">
                 @Html.DisplayFor(model => model.Carrier.Name)
             </dd>
-            
+
             <dt class="col-sm-5">
                 @Html.DisplayNameFor(model => model.LoadDate)
             </dt>
@@ -60,7 +63,7 @@
             <dd class="col-sm-7">
                 @Convert.ToDateTime(Model.EndDate).ToString("dd/MM/yyyy")
             </dd>
-            
+
             <dt class="col-sm-5">
                 @Html.DisplayNameFor(model => model.DriverId)
             </dt>
@@ -79,22 +82,16 @@
             <dd class="col-sm-7">
                 @Html.DisplayFor(model => model.Carreta.Id)
             </dd>
-            
             <dt class="col-sm-5">
                 @Html.DisplayNameFor(model => model.UnitPay)
             </dt>
             <dd class="col-sm-7">
                 @Html.DisplayFor(model => model.UnitPay)
             </dd>
-            
-
-
-
-
         </dl>
 
     </div>
-    <div class="tab-pane fade p-2" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+    <div class="tab-pane fade p-2" id="datos" role="tabpanel" aria-labelledby="datos-tab">
         <dl class="row">
             <dt class="col-sm-5">
                 @Html.DisplayNameFor(model => model.OdometerBegin)
@@ -114,48 +111,47 @@
             <dd class="col-sm-7">
                 @Html.DisplayFor(model => model.Fuel)
             </dd>
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(model => model.Capacity)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(model => model.Capacity)
+            </dd>
 
             <dt class="col-sm-5">
                 Guia Remision Remitente
             </dt>
             <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.Fuel) <a>Foto</a>
+                <a>Foto</a>
             </dd>
             <dt class="col-sm-5">
                 Guia Remision tranportista
             </dt>
             <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.Fuel) <a>Foto</a>
+                <a>Foto</a>
             </dd>
             <dt class="col-sm-5">
                 Carga Efectiva
             </dt>
             <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.Fuel) <a>Foto</a>
+                <a>Foto</a>
             </dd>
             <dt class="col-sm-5">
                 Ticket balanza origen
             </dt>
             <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.Fuel) <a>Foto</a>
+                <a>Foto</a>
             </dd>
             <dt class="col-sm-5">
                 Ticket balanza destino
             </dt>
             <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.Fuel) <a>Foto</a>
-            </dd>
-            <dt class="col-sm-5">
-                fecha de fin
-            </dt>
-            <dd class="col-sm-7">
-                @Html.DisplayFor(model => model.Fuel)
+                <a>Foto</a>
             </dd>
         </dl>
 
     </div>
-    <div class="tab-pane fade p-2" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-
+    <div class="tab-pane fade p-2" id="gastos" role="tabpanel" aria-labelledby="gastos-tab">
 
         <p>
             <a asp-controller="DriverExpenses" asp-action="Create" asp-route-operationid="@Model.Id" asp-route-driverid="@Model.DriverId" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Agregar Gasto</a>
@@ -179,7 +175,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in ViewBag.DiverExpenses)
+                @foreach (var item in ViewBag.DriverExpenses)
                 {
                     sumaGatos += item.Amount;
                     <tr>
@@ -196,8 +192,8 @@
                             @item.Amount.ToString("#.00")
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                            <a asp-controller="DriverExpenses" asp-action="Edit" asp-route-id="@item.Id" asp-route-driverid="@item.DriverId" asp-route-typeexpenseid="@item.TypeExpenseId" asp-route-operationid="@item.OperationId">Editar</a> |
+                            <a asp-controller="DriverExpenses" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
                         </td>
                     </tr>
                 }
@@ -217,7 +213,7 @@
 
     </div>
 
-    <div class="tab-pane fade p-2" id="contact1" role="tabpanel" aria-labelledby="contact1-tab">
+    <div class="tab-pane fade p-2" id="costos" role="tabpanel" aria-labelledby="costos-tab">
         <dl class="row">
             <dt class="col-sm-5">
                 Llantas (Ratio x Cantidad de kilimetros)
@@ -239,109 +235,54 @@
             </dd>
         </dl>
     </div>
+
+
+    <div class="tab-pane fade p-2" id="peajes" role="tabpanel" aria-labelledby="peajes-tab">
+        <table id="tblList" class="table table-sm table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Dia de pago
+                    </th>
+                    <th>
+                        Pago
+                    </th>
+                    @*
+                        <th>
+                            @Html.DisplayNameFor(model => model.Operations)
+                        </th>
+                    *@
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.TollLista)
+                {
+                    <tr>
+                        <td>
+                            @item.DatePay
+                        </td>
+                        <td>
+                            @item.Pay
+                        </td>
+                        @*
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Operations.Id)
+                            </td>
+                        *@
+                        <td nowrap>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="text-primary"><i class="fas fa-edit"></i> Editar</a> |
+                            @*<a asp-action="Details" asp-route-id="@item.Id" class="text-info"><i class="fas fa-bookmark"></i> Detalle</a> |*@
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger"><i class="fas fa-trash"></i> Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
-
-
-
-
 <div>
-    <h4>Detalles de la Operacion</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MonthYear)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MonthYear)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OutDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.OutDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.LoadDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.LoadDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OdometerBegin)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.OdometerBegin)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OdometerEnd)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.OdometerEnd)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UnitPay)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UnitPay)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Fuel)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Fuel)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Capacity)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Capacity)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Carreta)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Carreta.Id)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Carrier)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Carrier.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Client)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Client.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Clientrate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Clientrate.ContractExpiration)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Driver)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Driver.Dni)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Tracto)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Tracto.Id)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Id">Editar Operacion</a> |
     <a asp-action="Index">Regresar</a>
 </div>

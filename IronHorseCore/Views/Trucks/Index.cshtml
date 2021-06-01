@@ -86,81 +86,81 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Carrier.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsRemolcado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsSemiremolque)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SemiremolqueTipo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Placa)
-            </td>
-            @*
-            <td>
-                @Html.DisplayFor(modelItem => item.Soatnumero)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Soatvigencia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PolizaNro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PolizaVigencia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PolizaAccidentesPersonalesVigencia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PolizaSeguroTrecVigencia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RevisionTecnicaNro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RevisionTecnicaVigencia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CkecklistInspeccionGeneralVigencia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gpsproveedor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GpscertificadoInstalacion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TarjetaCirualacionVigencia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TarjetaMercaderiaVigencia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Propietario)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BonificacionPesosMedidas)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BonifacionMatpel)
-            </td>
-            *@
-            <td nowrap>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="text-primary"><i class="fas fa-edit"></i> Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id" class="text-info"><i class="fas fa-bookmark"></i> Detalle</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger"><i class="fas fa-trash"></i> Eliminar</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Carrier.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsRemolcado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsSemiremolque)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SemiremolqueTipo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Placa)
+                </td>
+                @*
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Soatnumero)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Soatvigencia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PolizaNro)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PolizaVigencia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PolizaAccidentesPersonalesVigencia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PolizaSeguroTrecVigencia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RevisionTecnicaNro)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RevisionTecnicaVigencia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CkecklistInspeccionGeneralVigencia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gpsproveedor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GpscertificadoInstalacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TarjetaCirualacionVigencia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TarjetaMercaderiaVigencia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Propietario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BonificacionPesosMedidas)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BonifacionMatpel)
+                    </td>
+                *@
+                <td nowrap>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="text-primary"><i class="fas fa-edit"></i> Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" class="text-info"><i class="fas fa-bookmark"></i> Detalle</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger"><i class="fas fa-trash"></i> Eliminar</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

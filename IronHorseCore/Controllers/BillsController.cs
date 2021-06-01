@@ -13,6 +13,13 @@ namespace IronHorseCore.Controllers
     {
         private readonly EFContext _context;
 
+        private List<SelectListItem> TypeBillStatus = new List<SelectListItem>
+                {
+                        new SelectListItem { Text = "Factura Generada", Value = "1"},
+                        new SelectListItem { Text = "Factura Pagada", Value = "2"},
+                        new SelectListItem { Text = "Factura Anulada", Value = "3"},
+                };
+
         public BillsController(EFContext context)
         {
             _context = context;
@@ -22,6 +29,8 @@ namespace IronHorseCore.Controllers
         public async Task<IActionResult> Index()
         {
             var eFContext = _context.Bills.Include(b => b.Operation);
+            //Mostrar lista de estados de factura
+            ViewBag.TypeBillStatus = TypeBillStatus;
             return View(await eFContext.ToListAsync());
         }
 
@@ -36,10 +45,13 @@ namespace IronHorseCore.Controllers
             var bill = await _context.Bills
                 .Include(b => b.Operation)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (bill == null)
             {
                 return NotFound();
             }
+
+            ViewBag.TypeBillStatus = TypeBillStatus;
 
             return View(bill);
         }
@@ -47,6 +59,8 @@ namespace IronHorseCore.Controllers
         // GET: Bills/Create
         public IActionResult Create()
         {
+            //Crear Lista con etiqueta select
+            ViewBag.TypeBillStatus = new SelectList(TypeBillStatus, "Value", "Text");
             ViewData["OperationId"] = new SelectList(_context.Operations, "Id", "Id");
             return View();
         }
@@ -56,16 +70,17 @@ namespace IronHorseCore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,OperationId,Created,Total,SerialNumber,Status")] Bill bill, String strDatepay)
+        public async Task<IActionResult> Create([Bind("Id,OperationId,Total,SerialNumber,Status,Datepay")] Bill bill)
         {
             if (ModelState.IsValid)
             {
                 bill.Created = DateTime.Now;
-                bill.Datepay = DateTime.ParseExact(strDatepay, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
                 _context.Add(bill);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewBag.TypeBillStatus = new SelectList(TypeBillStatus, "Value", "Text", bill.Status);
             ViewData["OperationId"] = new SelectList(_context.Operations, "Id", "Id", bill.OperationId);
             return View(bill);
         }
@@ -73,17 +88,10 @@ namespace IronHorseCore.Controllers
         // GET: Bills/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var bill = await _context.Bills.FindAsync(id);
-            if (bill == null)
-            {
-                return NotFound();
-            }
+            ViewBag.TypeBillStatus = new SelectList(TypeBillStatus, "Value", "Text", bill.Status);
             ViewData["OperationId"] = new SelectList(_context.Operations, "Id", "Id", bill.OperationId);
+
             return View(bill);
         }
 
@@ -92,7 +100,7 @@ namespace IronHorseCore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,OperationId,Created,Total,SerialNumber,Status,Datepay")] Bill bill)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,OperationId,Created,Total,SerialNumber,Status")] Bill bill, String strDatepay)
         {
             if (id != bill.Id)
             {
@@ -103,6 +111,7 @@ namespace IronHorseCore.Controllers
             {
                 try
                 {
+                    bill.Datepay = DateTime.ParseExact(strDatepay, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
                     _context.Update(bill);
                     await _context.SaveChangesAsync();
                 }
@@ -119,6 +128,8 @@ namespace IronHorseCore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewBag.TypeBillStatus = new SelectList(TypeBillStatus, "Value", "Text", bill.Status);
             ViewData["OperationId"] = new SelectList(_context.Operations, "Id", "Id", bill.OperationId);
             return View(bill);
         }
@@ -134,10 +145,13 @@ namespace IronHorseCore.Controllers
             var bill = await _context.Bills
                 .Include(b => b.Operation)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (bill == null)
             {
                 return NotFound();
             }
+
+            ViewBag.TypeBillStatus = TypeBillStatus;
 
             return View(bill);
         }

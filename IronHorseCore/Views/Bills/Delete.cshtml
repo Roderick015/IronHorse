@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Delete";
+    var list = (List<SelectListItem>)ViewBag.TypeBillStatus;
 }
 
 <div>
@@ -10,16 +11,10 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Created)
+            @Html.DisplayNameFor(model => model.OperationId)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Created)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Total)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Total)
+            @Html.DisplayFor(model => model.Operation.Id)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.SerialNumber)
@@ -28,23 +23,31 @@
             @Html.DisplayFor(model => model.SerialNumber)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Datepay)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Datepay)
+            @Convert.ToDateTime(Model.Datepay).ToString("dd/MM/yyyy")
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Operation)
+            @Html.DisplayNameFor(model => model.Status)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Operation.Id)
+            @list.Where(m => m.Value == Model.Status.ToString()).First().Text
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+        @*
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Created)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Created)
+            </dd>
+        *@
     </dl>
 
     <form asp-action="Delete">
