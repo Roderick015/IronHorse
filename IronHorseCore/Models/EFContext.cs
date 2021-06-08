@@ -490,9 +490,7 @@ namespace IronHorseCore.Models
                     .HasColumnType("datetime")
                     .HasComment("Fecha");
 
-                entity.Property(e => e.Pay)
-                    .HasPrecision(6, 2)
-                    .HasComment("Pago");
+                entity.Property(e => e.Pay).HasComment("Pago");
 
                 entity.HasOne(d => d.Operations)
                     .WithMany(p => p.Tolls)
@@ -650,6 +648,8 @@ namespace IronHorseCore.Models
                     .HasMaxLength(50)
                     .UseCollation("utf8_general_ci")
                     .HasCharSet("utf8");
+
+                entity.Property(e => e.IsAdmin).HasComment("1: Admin; 2: Usuario Normal");
 
                 entity.Property(e => e.LastAccess).HasColumnType("datetime");
 

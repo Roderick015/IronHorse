@@ -10,6 +10,15 @@
         <a asp-action="Create" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Agregar Factura</a>
     </div>
     <h4 class="page-title">Facturas</h4>
+
+    @*Reporte de excel*@
+    <form asp-action="Report">
+        <div style="padding-bottom: 1%;">
+            <button type="submit" class="btn btn-success">
+                <i class="far fa-file-excel"></i> Reporte Excel
+            </button>
+        </div>
+    </form>
 </div>
 
 <table id="tblList" class="table table-sm table-bordered">

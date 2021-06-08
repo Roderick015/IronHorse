@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IronHorseCore.Models;
+using ClosedXML.Excel;
+using ClosedXML.Extensions;
 
 namespace IronHorseCore.Controllers
 {
@@ -195,6 +197,74 @@ namespace IronHorseCore.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+
+        // POST: Meets/Report
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Report()
+        {
+            var DbF = Microsoft.EntityFrameworkCore.EF.Functions;
+
+            var list = _context.Operations.Include(o => o.Carreta).Include(o => o.Carrier).Include(o => o.Client).Include(o => o.Clientrate).Include(o => o.Driver).Include(o => o.Tracto).OrderBy(m => m.Id).ToList();
+
+            var wb = new ClosedXML.Excel.XLWorkbook();
+            var ws = wb.AddWorksheet();
+            int cont = 2;
+
+
+            ws.Range("A" + cont, "O" + cont).Style.Fill.SetBackgroundColor(XLColor.FromArgb(79, 129, 189));
+            ws.Range("A" + cont, "O" + cont).Style.Border.SetOutsideBorder(XLBorderStyleValues.Thick);
+            ws.Range("A" + cont, "O" + cont).Style.Border.SetOutsideBorderColor(XLColor.FromArgb(149, 179, 215));
+            ws.Range("A" + cont, "O" + cont).Style.Font.SetFontColor(XLColor.White);
+
+
+            ws.Cell("A" + cont).Value = "Id";
+            ws.Cell("B" + cont).Value = "MesAño";
+            ws.Cell("C" + cont).Value = "Cliente";
+            ws.Cell("D" + cont).Value = "Transportista";
+            ws.Cell("E" + cont).Value = "Fecha de Carga";
+            ws.Cell("F" + cont).Value = "Fecha salida";
+            ws.Cell("G" + cont).Value = "Fecha fin";
+            ws.Cell("H" + cont).Value = "Conductor";
+            ws.Cell("I" + cont).Value = "Tracto";
+            ws.Cell("J" + cont).Value = "Carreta";
+            ws.Cell("K" + cont).Value = "Odometro Inicio";
+            ws.Cell("L" + cont).Value = "Odometro Final";
+            ws.Cell("M" + cont).Value = "Unidad Cobro";
+            ws.Cell("N" + cont).Value = "Combustible";
+            ws.Cell("O" + cont).Value = "Capacidad";
+
+            cont++;
+
+            foreach (var item in list)
+            {
+                ws.Cell("A" + cont).Value = item.Id;
+                ws.Cell("B" + cont).Value = item.MonthYear;
+                ws.Cell("C" + cont).Value = item.Client.Name;
+                ws.Cell("D" + cont).Value = item.Carrier.Name;
+                ws.Cell("E" + cont).Value = item.LoadDate;
+                ws.Cell("F" + cont).Value = item.OutDate;
+                ws.Cell("G" + cont).Value = item.EndDate;
+                ws.Cell("H" + cont).Value = item.Driver.Dni;
+                ws.Cell("I" + cont).Value = item.Tracto.Placa;
+                ws.Cell("J" + cont).Value = item.Carreta.Placa;
+                ws.Cell("K" + cont).Value = item.OdometerBegin;
+                ws.Cell("L" + cont).Value = item.OdometerEnd;
+                ws.Cell("M" + cont).Value = item.UnitPay;
+                ws.Cell("N" + cont).Value = item.Fuel;
+                ws.Cell("O" + cont).Value = item.Capacity;
+
+                cont++;
+            }
+            ws.Columns("A", "O").AdjustToContents();
+
+            return wb.Deliver("ReporteDeOperaciones.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+
+        }
+
 
         private bool OperationExists(int id)
         {

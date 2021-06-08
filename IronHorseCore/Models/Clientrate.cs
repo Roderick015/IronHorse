@@ -22,7 +22,7 @@ namespace IronHorseCore.Models
         public int DestinyId { get; set; }
         public int UnitId { get; set; }
         public int MoneyId { get; set; }
-        public decimal PriceWithoutVat { get; set; }
+        public decimal? PriceWithoutVat { get; set; }
         public string ContractNumber { get; set; }
         public string ContractExpiration { get; set; }
         public bool Enabled { get; set; }

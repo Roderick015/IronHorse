@@ -19,6 +19,7 @@ namespace IronHorseCore.Models
         public DateTime LastAccess { get; set; }
         public bool Enabled { get; set; }
         public string Rol { get; set; }
+        public bool IsAdmin { get; set; }
         public string UniqueId { get; set; }
         public string MetaAuth { get; set; }
         public bool IsRemoved { get; set; }

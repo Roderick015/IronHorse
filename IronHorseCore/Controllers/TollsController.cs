@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IronHorseCore.Models;
+using ClosedXML.Excel;
+using ClosedXML.Extensions;
 
 namespace IronHorseCore.Controllers
 {
@@ -45,9 +47,9 @@ namespace IronHorseCore.Controllers
         }
 
         // GET: Tolls/Create
-        public IActionResult Create()
+        public IActionResult Create(int operationid)
         {
-            ViewData["OperationsId"] = new SelectList(_context.Operations, "Id", "Id");
+            ViewData["OperationsId"] = new SelectList(_context.Operations, "Id", "Id", operationid);
             return View();
         }
 
@@ -62,14 +64,14 @@ namespace IronHorseCore.Controllers
             {
                 _context.Add(toll);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), "Operations", new { id = toll.OperationsId });
             }
             ViewData["OperationsId"] = new SelectList(_context.Operations, "Id", "Id", toll.OperationsId);
             return View(toll);
         }
 
         // GET: Tolls/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, int operationid)
         {
             if (id == null)
             {
@@ -81,6 +83,9 @@ namespace IronHorseCore.Controllers
             {
                 return NotFound();
             }
+
+            toll.OperationsId = operationid;
+
             ViewData["OperationsId"] = new SelectList(_context.Operations, "Id", "Id", toll.OperationsId);
             return View(toll);
         }
@@ -90,7 +95,7 @@ namespace IronHorseCore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,OperationsId,DatePay,Pay")] Toll toll)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,OperationsId,DatePay,Pay")] Toll toll, String strDatePay)
         {
             if (id != toll.Id)
             {
@@ -101,6 +106,7 @@ namespace IronHorseCore.Controllers
             {
                 try
                 {
+                    toll.DatePay = DateTime.ParseExact(strDatePay, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
                     _context.Update(toll);
                     await _context.SaveChangesAsync();
                 }
@@ -115,7 +121,7 @@ namespace IronHorseCore.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), "Operations", new { id = toll.OperationsId });
             }
             ViewData["OperationsId"] = new SelectList(_context.Operations, "Id", "Id", toll.OperationsId);
             return View(toll);
@@ -148,8 +154,9 @@ namespace IronHorseCore.Controllers
             var toll = await _context.Tolls.FindAsync(id);
             _context.Tolls.Remove(toll);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Details), "Operations", new { id = toll.OperationsId });
         }
+        
 
         private bool TollExists(int id)
         {

@@ -9,6 +9,8 @@ using IronHorseCore.Models;
 using IronHorseCore.Helper;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
+using ClosedXML.Excel;
+using ClosedXML.Extensions;
 
 namespace IronHorseCore.Controllers
 {
@@ -24,7 +26,8 @@ namespace IronHorseCore.Controllers
         // GET: Clients
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Clients.Where(m => m.IsRemoved == false).ToListAsync());
+            var eFContext = _context.Clients.Where(m => m.IsRemoved == false);
+            return View(await eFContext.ToListAsync());
         }
 
         // GET: Clients/Details/5
@@ -123,6 +126,59 @@ namespace IronHorseCore.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+
+        // POST: Meets/Report
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Report()
+        {
+            var DbF = Microsoft.EntityFrameworkCore.EF.Functions;
+
+            var list = _context.Clients.Where(m => m.IsRemoved == false).OrderBy(m => m.Id).ToList();
+
+            var wb = new ClosedXML.Excel.XLWorkbook();
+            var ws = wb.AddWorksheet();
+            int cont = 2;
+
+
+            ws.Range("A" + cont, "G" + cont).Style.Fill.SetBackgroundColor(XLColor.FromArgb(79, 129, 189));
+            ws.Range("A" + cont, "G" + cont).Style.Border.SetOutsideBorder(XLBorderStyleValues.Thick);
+            ws.Range("A" + cont, "G" + cont).Style.Border.SetOutsideBorderColor(XLColor.FromArgb(149, 179, 215));
+            ws.Range("A" + cont, "G" + cont).Style.Font.SetFontColor(XLColor.White);
+
+
+            ws.Cell("A" + cont).Value = "Id";
+            ws.Cell("B" + cont).Value = "Nombre Empresa";
+            ws.Cell("C" + cont).Value = "RUC";
+            ws.Cell("D" + cont).Value = "Direccion";
+            ws.Cell("E" + cont).Value = "Contacto";
+            ws.Cell("F" + cont).Value = "Contacto Numerico";
+            ws.Cell("G" + cont).Value = "Contacto Correo";
+
+            cont++;
+
+            foreach (var item in list)
+            {
+                ws.Cell("A" + cont).Value = item.Id;
+                ws.Cell("B" + cont).Value = item.Name;
+                ws.Cell("C" + cont).Value = item.Code;
+                ws.Cell("D" + cont).Value = item.Address;
+                ws.Cell("E" + cont).Value = item.Contact;
+                ws.Cell("F" + cont).Value = item.ContactPhone;
+                ws.Cell("G" + cont).Value = item.ContactEmail;
+
+                cont++;
+            }
+            ws.Columns("A", "G").AdjustToContents();
+
+            return wb.Deliver("ReporteDeClientes.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+
+        }
+
+
 
         private bool ClientExists(int id)
         {

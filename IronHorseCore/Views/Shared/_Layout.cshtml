@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -47,39 +50,95 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Users" asp-action="Index">Usuarios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Clients" asp-action="Index">Clientes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Clientrates" asp-action="Index">Tarifas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Bills" asp-action="Index">Facturas</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Operaciones</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdown01">
-                                <a class="dropdown-item" asp-area="" asp-controller="Operations" asp-action="Index">Operaciones</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" asp-area="" asp-controller="Carriers" asp-action="Index">Transportista</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Drivers" asp-action="Index">Conductores</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Typeloads" asp-action="Index">Tipo de carga</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="TypeProducts" asp-action="Index">Tipo de producto</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Typeservices" asp-action="Index">Tipo de servicios</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Places" asp-action="Index">Lugares</a>                                
-                                <a class="dropdown-item" asp-area="" asp-controller="Trucks" asp-action="Index">Tracto/Carreta</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Units" asp-action="Index">Unidad</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Moneys" asp-action="Index">Moneda</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="TypeExpenses" asp-action="Index">Tipo de Gasto de Conductor</a>
-                                
+
+                    @if (@HttpContextAccessor.HttpContext.Session.GetString("IsAdmin") == "true")
+                    {
+                        <ul class="navbar-nav flex-grow-1">
+
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Users" asp-action="Index">Usuarios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Clients" asp-action="Index">Clientes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Clientrates" asp-action="Index">Tarifas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Bills" asp-action="Index">Facturas</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Operaciones</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Operations" asp-action="Index">Operaciones</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Carriers" asp-action="Index">Transportista</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Drivers" asp-action="Index">Conductores</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Typeloads" asp-action="Index">Tipo de carga</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="TypeProducts" asp-action="Index">Tipo de producto</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Typeservices" asp-action="Index">Tipo de servicios</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Places" asp-action="Index">Lugares</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Trucks" asp-action="Index">Tracto/Carreta</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Units" asp-action="Index">Unidad</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Moneys" asp-action="Index">Moneda</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="TypeExpenses" asp-action="Index">Tipo de Gasto de Conductor</a>
+
+                                </div>
+                            </li>
+
+                        </ul>
+
+                    }
+                    else
+                    {
+                        <ul class="navbar-nav flex-grow-1">
+                        
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Clients" asp-action="Index">Clientes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Clientrates" asp-action="Index">Tarifas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Bills" asp-action="Index">Facturas</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Operaciones</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Operations" asp-action="Index">Operaciones</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Carriers" asp-action="Index">Transportista</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Drivers" asp-action="Index">Conductores</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Typeloads" asp-action="Index">Tipo de carga</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="TypeProducts" asp-action="Index">Tipo de producto</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Typeservices" asp-action="Index">Tipo de servicios</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Places" asp-action="Index">Lugares</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Trucks" asp-action="Index">Tracto/Carreta</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Units" asp-action="Index">Unidad</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Moneys" asp-action="Index">Moneda</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="TypeExpenses" asp-action="Index">Tipo de Gasto de Conductor</a>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                    }
+
+                    <ul class="list-unstyled topbar-right-menu float-right mb-0">
+
+                        <li class="dropdown notification-list topbar-dropdown d-none d-lg-block">
+                            <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" id="topbar-languagedrop" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="color: white; padding-left: 10px; padding-right: 10px; ">
+                                @HttpContextAccessor.HttpContext.Session.GetString("UserName")
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown" aria-labelledby="topbar-userdrop">
+                                <a href="/Logout" class="dropdown-item notify-item">
+                                    <i class="mdi mdi-logout mr-1"></i>
+                                    <span>Logout</span>
+                                </a>
                             </div>
                         </li>
-
                     </ul>
+
                 </div>
             </div>
         </nav>
@@ -91,18 +150,18 @@
     </div>
 
     @*<footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - IronHorseCore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>*@
+            <div class="container">
+                &copy; 2021 - IronHorseCore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>*@
     @*<environment include="Development">*@
-        <script src="~/lib/jquery/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="~/js/layouts.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/layouts.js" asp-append-version="true"></script>
     @*</environment>
-    <environment include="Production">
-        <script src="~/bundles/site.min.js" asp-append-version="true"></script>
-    </environment>*@
+        <environment include="Production">
+            <script src="~/bundles/site.min.js" asp-append-version="true"></script>
+        </environment>*@
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

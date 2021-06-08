@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IronHorseCore.Models;
+using ClosedXML.Excel;
+using ClosedXML.Extensions;
 
 namespace IronHorseCore.Controllers
 {
@@ -165,6 +167,70 @@ namespace IronHorseCore.Controllers
             _context.Bills.Remove(bill);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        // POST: Meets/Report
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Report()
+        {
+            var DbF = Microsoft.EntityFrameworkCore.EF.Functions;
+
+            var list = _context.Bills.Include(b => b.Operation).OrderBy(m => m.Id).ToList();
+
+            var wb = new ClosedXML.Excel.XLWorkbook();
+            var ws = wb.AddWorksheet();
+            int cont = 2;
+
+
+            ws.Range("A" + cont, "G" + cont).Style.Fill.SetBackgroundColor(XLColor.FromArgb(79, 129, 189));
+            ws.Range("A" + cont, "G" + cont).Style.Border.SetOutsideBorder(XLBorderStyleValues.Thick);
+            ws.Range("A" + cont, "G" + cont).Style.Border.SetOutsideBorderColor(XLColor.FromArgb(149, 179, 215));
+            ws.Range("A" + cont, "G" + cont).Style.Font.SetFontColor(XLColor.White);
+
+
+            ws.Cell("A" + cont).Value = "Id";
+            ws.Cell("B" + cont).Value = "Operacion";
+            ws.Cell("C" + cont).Value = "Fecha de Creacion";
+            ws.Cell("D" + cont).Value = "Total";
+            ws.Cell("E" + cont).Value = "Numero de Serie";
+            ws.Cell("F" + cont).Value = "Estado de Factura";
+            ws.Cell("G" + cont).Value = "Fecha de pago";
+
+            cont++;
+
+            foreach (var item in list)
+            {
+                ws.Cell("A" + cont).Value = item.Id;
+                ws.Cell("B" + cont).Value = item.OperationId;
+                ws.Cell("C" + cont).Value = item.Created;
+                ws.Cell("D" + cont).Value = item.Total;
+                ws.Cell("E" + cont).Value = item.SerialNumber;
+                switch (item.Status)
+                {
+                    case 1:
+                        ws.Cell("F" + cont).Value = "Factura Generada";
+                        //ws.Range("B" + cont).Style.Font.SetFontColor(XLColor.FromHtml("#A91E2C"));
+                        break;
+                    case 2:
+                        ws.Cell("F" + cont).Value = "Factura Pagada";
+                        //ws.Range("B" + cont).Style.Font.SetFontColor(XLColor.FromHtml("#18634B"));
+                        break;
+                    case 3:
+                        ws.Cell("F" + cont).Value = "Factura Anulada";
+                        //ws.Range("B" + cont).Style.Font.SetFontColor(XLColor.FromHtml("#0056B3"));
+                        break;
+                }
+                ws.Cell("G" + cont).Value = item.Datepay;
+
+                cont++;
+            }
+            ws.Columns("A", "H").AdjustToContents();
+
+            return wb.Deliver("ReporteDeCitas.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+
         }
 
         private bool BillExists(int id)

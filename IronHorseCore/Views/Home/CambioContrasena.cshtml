@@ -1,0 +1,33 @@
+﻿<main style="min-height:500px;">
+    <div class="section overflow-hidden">
+        <div class="container z-2">
+            <h3 style="margin-top: 0.5rem;">Cambio de contraseña</h3>
+            <hr style="margin-top: 0.5rem; margin-bottom: 0.5rem;" />
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="CambioContrasena">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label class="control-label">Nueva contraseña</label>
+                            <input class="form-control" name="Contrasena1" required />
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Actualizar" class="btn btn-primary" />
+                        </div>
+
+                        @if (ViewBag.Mensaje != null)
+                        {
+                            <span>@ViewBag.Mensaje</span>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

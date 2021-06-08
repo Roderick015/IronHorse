@@ -1060,3 +1060,6 @@ C:\Users\roder\Documents\GitHub\IronHorse\IronHorseCore\obj\Debug\net5.0\Razor\V
 C:\Users\roder\Documents\GitHub\IronHorse\IronHorseCore\obj\Debug\net5.0\IronHorseCore.Views.pdb
 C:\Users\roder\Documents\GitHub\IronHorse\IronHorseCore\obj\Debug\net5.0\IronHorseCore.csproj.CopyComplete
 C:\Users\roder\Documents\GitHub\IronHorse\IronHorseCore\obj\Debug\net5.0\IronHorseCore.genruntimeconfig.cache
+D:\AgileCorp\Proyectos\IronHorse\IronHorseCore\obj\Debug\net5.0\Razor\Views\Home\CambioContrasena.cshtml.g.cs
+D:\AgileCorp\Proyectos\IronHorse\IronHorseCore\obj\Debug\net5.0\Razor\Views\Home\Login.cshtml.g.cs
+D:\AgileCorp\Proyectos\IronHorse\IronHorseCore\obj\Debug\net5.0\Razor\Views\Shared\_Layout_Login.cshtml.g.cs

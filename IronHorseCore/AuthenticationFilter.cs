@@ -12,33 +12,28 @@ namespace IronHorseCore
     {
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            ////#if DEBUG
-            context.HttpContext.Session.SetInt32("UserId", 1);
-            context.HttpContext.Session.SetString("UserName", "Roderick");
-            ////            context.HttpContext.Session.SetString("CryptKey", "Roderick");
-            ////#else
-            //var path = context.HttpContext.Request.Path;
+            //#if DEBUG
+            
+            //context.HttpContext.Session.SetInt32("UserId", 1);
+            //context.HttpContext.Session.SetString("UserName", "Gustavo");
+            
+            //#else
+            var path = context.HttpContext.Request.Path;
 
-            //List<String> path_anonymus = new List<string>();
-            //path_anonymus.Add("/Login");
-            //path_anonymus.Add("/Salir");
-            //path_anonymus.Add("/ConfrimacioDeCorreo");
-            //path_anonymus.Add("/RecuperarContrasena");
-            //path_anonymus.Add("/Registro");
-            ////path_anonymus.Add("/Error/");
-            //path_anonymus.Add("/get-captcha-image");
-            //path_anonymus.Add("/Home/Error");
+            List<String> path_anonymus = new List<string>();
+            path_anonymus.Add("/Login");
+            path_anonymus.Add("/Logout");
 
-            //String anonymus = path_anonymus.Where(m => m.Equals(path)).FirstOrDefault();// || m.Contains(path)
-            //if (anonymus == null)
-            //{
-            //    if (String.IsNullOrEmpty(context.HttpContext.Session.GetString("UserId")))
-            //    {
-            //        context.Result = new RedirectToRouteResult(
-            //                    new RouteValueDictionary(new { controller = "Home", action = "Login" }));
-            //    }
-            //}
-            ////#endif
+            String anonymus = path_anonymus.Where(m => m.Equals(path)).FirstOrDefault();// || m.Contains(path)
+            if (anonymus == null)
+            {
+                if (String.IsNullOrEmpty(context.HttpContext.Session.GetString("UserId")))
+                {
+                    context.Result = new RedirectToRouteResult(
+                                new RouteValueDictionary(new { controller = "Home", action = "Login" }));
+                }
+            }
+            //#endif
         }
 
         public void OnActionExecuted(ActionExecutedContext context)
@@ -46,4 +41,5 @@ namespace IronHorseCore
 
         }
     }
+
 }

@@ -11,16 +11,16 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            @*
-                <div class="form-group">
+            
+            <div class="form-group" style="display:none">
                     <label asp-for="OperationsId" class="control-label"></label>
                     <select asp-for="OperationsId" class="form-control" asp-items="ViewBag.OperationsId"></select>
                     <span asp-validation-for="OperationsId" class="text-danger"></span>
-                </div>
-            *@
+            </div>
+            
             <div class="form-group">
                 <label asp-for="DatePay" class="control-label"></label>
-                <input asp-for="DatePay" class="form-control" />
+                <input id="strDatePay" name="strDatePay" class="form-control" value="@Convert.ToDateTime(Model.DatePay).ToString("dd/MM/yyyy")" />
                 <span asp-validation-for="DatePay" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -28,16 +28,15 @@
                 <input asp-for="Pay" class="form-control" />
                 <span asp-validation-for="Pay" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Grabar" class="btn btn-primary" />
             </div>
+
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Regresar</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
@@ -48,10 +47,10 @@
 
     <script>
         //Set a los atributos de los input date para convertirlos en tipo texto
-        $('#DatePay').attr('type', 'text');
+        //$('#DatePay').attr('type', 'text');
 
         //Agregarle el datepicker del javascript
-        $('#DatePay').datepicker({
+        $('#strDatePay').datepicker({
             language: "es",
             autoclose: true,
             todayHighlight: true
